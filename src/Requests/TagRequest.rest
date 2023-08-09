@@ -1,0 +1,29 @@
+@api = https://localhost:5001
+
+### add tag
+POST {{api}}/tag
+Content-Type: application/json
+
+{
+  "description": "Słabe"
+}
+
+### get tags
+GET {{api}}/tags
+Content-Type: application/json
+
+### get tag id
+GET {{api}}/tag/9d299a61-902f-4601-adee-30945752d9a7
+Content-Type: application/json
+
+### delete tag
+DELETE {{api}}/tag/22AE87F1-C3A2-4F5A-A6D7-ED0833442545
+Content-Type: application/json
+
+### update tag
+PUT {{api}}/tag/48ce944a-740d-4cae-82ba-f9984a919426
+Content-Type: application/json
+
+{
+"description": "Pyszne!"
+}

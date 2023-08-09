@@ -1,0 +1,48 @@
+@api = https://localhost:5001
+
+### sign in the user and return the json web token
+# @name sign_in
+POST {{api}}/Users/sign-in
+Content-Type: application/json
+
+{
+"email": "Mar123@gmail.com",
+"password": "straaaata"
+}
+
+### add category
+POST {{api}}/category
+Content-Type: application/json
+
+{
+"fullName": "Szybko, bo w 10minut"
+}
+
+###  get categories
+GET {{api}}/categories
+Content-Type: application/json
+
+###  get category id
+GET {{api}}/category/a2be8e4b-a7ee-4ff2-81db-78fc059aa3a7
+Content-Type: application/json
+
+### update category
+PUT {{api}}/category/ce4281ec-4cde-4081-837f-735d72ebe278
+Content-Type: application/json
+
+{
+"fullName": "Drogie, ale smaczne"
+}
+
+###  delete category
+DELETE {{api}}/category/0C35FFF5-E326-4EE2-9B00-4C3723B33C3C
+Content-Type: application/json
+
+
+
+
+
+
+
+
+

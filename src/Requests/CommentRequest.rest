@@ -1,0 +1,24 @@
+@api = https://localhost:5001
+
+### add comment
+POST {{api}}/comment
+Content-Type: application/json
+
+{
+"fullName": "Leszek",
+"description": "Na czasie to wszystko",
+"postId": "6785107c-c68c-4050-abd6-d4a63e0bfc81"
+}
+
+### update comment
+PUT {{api}}/comment/B6008F97-762F-4E2A-93CC-A5DE3F16966F
+Content-Type: application/json
+
+{
+"fullName": "Czesiek",
+"description": "Ale to pyszne!"
+}
+
+### delete comment
+DELETE {{api}}/comment/0C35FFF5-E326-4EE2-9B00-4C3723B33C3C
+Content-Type: application/json

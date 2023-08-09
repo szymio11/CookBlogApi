@@ -1,0 +1,35 @@
+@api = https://localhost:5001
+
+### add user
+POST {{api}}/Users
+Content-Type: application/json
+
+{
+"email": "Mar123@gmail.com",
+"userName": "Maras",
+"password": "straaaata",
+"fullName": "MarekPas",
+"role": "user"
+}
+
+### sign in the user and return the json web token
+# @name sign_in
+POST {{api}}/Users/sign-in
+Content-Type: application/json
+
+{
+"email": "Mar123@gmail.com",
+"password": "straaaata"
+}
+
+### get user me
+GET {{api}}/Users/me
+Content-Type: application/json
+
+###  get list of all the users
+GET {{api}}/Users
+Content-Type: application/json
+
+### get user id
+GET {{api}}/Users/
+Content-Type: application/json
