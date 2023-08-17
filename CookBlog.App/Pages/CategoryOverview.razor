@@ -13,11 +13,7 @@ else
             <tr>
                 <th></th>
                 <th>Name</th>
-                <th>
-                    <NavLink class="list-group-item list-group-item-action bg-light" href="/categoryedit">
-                        <span aria-hidden="true"></span> AddCategory
-                    </NavLink>
-                </th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -40,3 +36,6 @@ else
         </tbody>
     </table>
 }
+
+<button @onclick="QuickAddCategory" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<AddCategoryDialog @ref="AddCategoryDialog" CloseEventCallBack="@AddCategoryDialog_OnDialogClose" ></AddCategoryDialog>
