@@ -1,0 +1,42 @@
+﻿@page "/categoryoverview"
+
+<h1 class="page-title">All categories</h1>
+
+@if (CategoryDtos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>
+                    <NavLink class="list-group-item list-group-item-action bg-light" href="/categoryedit">
+                        <span aria-hidden="true"></span> AddCategory
+                    </NavLink>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var categoryDto in CategoryDtos)
+            {
+                <tr>
+                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{categoryDto.Id}-small.jpg")" class="rounded-circle" /></td>
+                    <td>@categoryDto.FullName</td>
+                    <td>
+                        <a href="@($"categorydetail/{categoryDto.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="@($"categoryedit/{categoryDto.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

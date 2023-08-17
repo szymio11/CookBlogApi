@@ -1,0 +1,41 @@
+﻿@page "/tagoverview"
+
+<h1 class="page-title">All tags</h1>
+
+@if (TagDtos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Description</th>
+                <th>
+                    <NavLink class="list-group-item list-group-item-action bg-light" href="/tagedit">
+                        <span aria-hidden="true"></span> AddTag
+                    </NavLink>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tagDto in TagDtos)
+            {
+                <tr>
+                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{tagDto.Id}-small.jpg")" class="rounded-circle" /></td>
+                    <td>@tagDto.Description</td>
+                    <td>
+                        <a href="@($"tagdetail/{tagDto.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="@($"tagedit/{tagDto.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

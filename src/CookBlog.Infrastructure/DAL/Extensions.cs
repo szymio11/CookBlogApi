@@ -30,7 +30,7 @@ internal static class Extensions
         var redisOptions = configuration.GetOptions<RedisOptions>(SectionName);
         services.AddStackExchangeRedisCache(redisCacheOptions => { redisCacheOptions.Configuration = redisOptions.Url; });
 
-        services.Decorate<ITagRepository, CacheTagRepository>();
+  //      services.Decorate<ITagRepository, CacheTagRepository>();
         services.TryDecorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
 
         return services;
