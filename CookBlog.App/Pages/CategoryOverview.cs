@@ -1,4 +1,5 @@
-﻿using CookBlog.App.DTO;
+﻿using CookBlog.App.Components;
+using CookBlog.App.DTO;
 using CookBlog.App.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -11,9 +12,21 @@ public partial class CategoryOverview
     [Inject]
     public ICategoryDataService CategoryDataService { get; set; }
 
+    protected AddCategoryDialog AddCategoryDialog { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
+    }
+
+    protected void QuickAddCategory()
+    {
+        AddCategoryDialog.Show();
+    }
+
+    public async void AddCategoryDialog_OnDialogClose()
+    {
+        CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
+        StateHasChanged();
     }
 }
