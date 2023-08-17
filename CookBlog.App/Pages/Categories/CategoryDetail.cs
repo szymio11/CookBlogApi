@@ -2,7 +2,7 @@
 using CookBlog.App.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace CookBlog.App.Pages;
+namespace CookBlog.App.Pages.Categories;
 
 public partial class CategoryDetail
 {
