@@ -1,0 +1,43 @@
+﻿@page "/postoverview"
+
+<h1 class="page-title">All posts</h1>
+
+@if (PostDtos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Tags</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var postDto in PostDtos)
+            {
+                <tr>
+                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{postDto.Id}-small.jpg")" class="rounded-circle" /></td>
+                    <td>@postDto.Title</td>
+                    <td>@postDto.Description</td>
+                    <td>@postDto.Category.FullName</td>
+                    <td>@string.Join(", ", postDto.Tags.Select(tag => tag.Description))</td>
+                    <td>
+                      <a href="@($"postdetail/{postDto.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="@($"postedit/{postDto.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

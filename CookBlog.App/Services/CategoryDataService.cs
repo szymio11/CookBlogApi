@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace CookBlog.App.Services;
 
-public class CategoryDataService : ICategoryDataService
+public sealed class CategoryDataService : ICategoryDataService
 {
     private readonly HttpClient _httpClient;
 
