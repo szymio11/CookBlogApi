@@ -1,8 +1,11 @@
 ﻿@inherits LayoutComponentBase
+
+    <MudThemeProvider />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
 <div class="d-flex" id="wrapper">
 
     <NavMenu />
-
     <div id="page-content-wrapper">
 
         <nav class="navbar navbar-expand-lg navbar-light border-bottom">
@@ -16,7 +19,7 @@
         <div class="container-fluid">
 
             @Body
-
+           
         </div>
     </div>
 

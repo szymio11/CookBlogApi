@@ -1,0 +1,53 @@
+﻿@page "/postcreate"
+@page "/postcreate/{PostId}"
+
+@if (!Saved)
+{
+    <section class="post-edit">
+        <h1 class="page-title">Details for @CreatePostDto.Title</h1>
+        <EditForm Model="@CreatePostDto" OnValidSubmit="@HandleValidSubmit"
+              OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary></ValidationSummary>
+            <div class="form-group row">
+                <label for="title" class="col-sm-3">Title: </label>
+                <InputText id="title" class="form-control col-sm-8" @bind-Value="@CreatePostDto.Title" placeholder="Enter title"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => CreatePostDto.Title)" />
+            </div>
+
+            <div class="form-group row">
+                <label for="description" class="col-sm-3">Description: </label>
+                <InputText id="description" class="form-control col-sm-8" @bind-Value="@CreatePostDto.Description" placeholder="Enter description"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => CreatePostDto.Description)" />
+            </div>
+
+            <div class="form-group row">
+                <label for="categoryId" class="col-sm-3">Category: </label>
+                <InputSelect id="categoryId" class="form-control col-sm-8" @bind-Value="@CategoryId">
+                    @foreach (var categoryDto in CategoryDtos)
+                    {
+                        <option value="@categoryDto.Id">@categoryDto.FullName</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="form-group row">
+                <label for="tags" class="col-sm-3">Tags: </label>
+                <InputSelect id="tags" class="form-control col-sm-8" @bind-Value="@TagIds">
+                    @foreach (var tagdto in TagDtos)
+                    {
+                        <option value="@tagdto.Id">@tagdto.Description</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <button type="submit" class="btn btn-primary edit-btn">Save post</button>
+
+            <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+        </EditForm>
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+}

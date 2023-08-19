@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ### get post id
-GET {{api}}/post/6785107c-c68c-4050-abd6-d4a63e0bfc81
+GET {{api}}/post/8ce9c508-054f-4d77-9ec7-0413ff2a9129
 Content-Type: application/json
 
 ### get posts
