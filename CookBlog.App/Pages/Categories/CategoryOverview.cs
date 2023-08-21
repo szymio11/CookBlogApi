@@ -7,12 +7,11 @@ namespace CookBlog.App.Pages.Categories;
 
 public partial class CategoryOverview
 {
-    public IEnumerable<CategoryDto> CategoryDtos { get; set; }
-
     [Inject]
     public ICategoryDataService CategoryDataService { get; set; }
 
     protected AddCategoryDialog AddCategoryDialog { get; set; }
+    public IEnumerable<CategoryDto> CategoryDtos { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

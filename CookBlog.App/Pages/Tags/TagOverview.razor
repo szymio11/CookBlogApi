@@ -14,9 +14,6 @@ else
                 <th></th>
                 <th>Description</th>
                 <th>
-                    <NavLink class="list-group-item list-group-item-action bg-light" href="/tagedit">
-                        <span aria-hidden="true"></span> AddTag
-                    </NavLink>
                 </th>
             </tr>
         </thead>
@@ -39,3 +36,6 @@ else
         </tbody>
     </table>
 }
+
+<button @onclick="QuickAddTag" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
+<AddTagDialog @ref="AddTagDialog" CloseEventCallBack="@AddTagDialog_OnDialogClose"></AddTagDialog>

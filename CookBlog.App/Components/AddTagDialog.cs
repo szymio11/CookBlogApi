@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Components;
 
 namespace CookBlog.App.Components;
 
-public partial class AddCategoryDialog
+public partial class AddTagDialog
 {
     [Inject]
-    public ICategoryDataService CategoryDataService { get; set; }
+    public ITagDataService TagDataService { get; set; }
 
     [Parameter]
     public EventCallback<bool> CloseEventCallBack { get; set; }
-    public CreateCategoryDto CreateCategoryDto { get; set; } = new CreateCategoryDto { FullName = "" };
+    public CreateTagDto CreateTagDto { get; set; } = new CreateTagDto { Description = ""};
 
     public bool ShowDialog { get; set; }
 
@@ -20,8 +20,8 @@ public partial class AddCategoryDialog
         ResetDialog();
         ShowDialog = true;
         StateHasChanged();
-    }
-
+    }  
+    
     public void Close()
     {
         ShowDialog = false;
@@ -30,12 +30,12 @@ public partial class AddCategoryDialog
 
     private void ResetDialog()
     {
-        CreateCategoryDto = new CreateCategoryDto { FullName = "" };
+        CreateTagDto = new CreateTagDto { Description = "" };
     }
 
     protected async Task HandleValidSubmit()
     {
-        await CategoryDataService.AddCategoryAsync(CreateCategoryDto);
+        await TagDataService.AddTagAsync(CreateTagDto);
         ShowDialog = false;
 
         await CloseEventCallBack.InvokeAsync(true);
