@@ -11,10 +11,10 @@ public sealed class CategoryDataService : ICategoryDataService
     public CategoryDataService(HttpClient httpClient) 
         => _httpClient = httpClient;
 
-    public async Task<bool> AddCategoryAsync(CategoryDto categorytDto)
+    public async Task<bool> AddCategoryAsync(CreateCategoryDto createCategorytDto)
     {
         var categoryJson =
-            new StringContent(JsonSerializer.Serialize(categorytDto), Encoding.UTF8, $"application/json");
+            new StringContent(JsonSerializer.Serialize(createCategorytDto), Encoding.UTF8, $"application/json");
 
         var response = await _httpClient.PostAsync($"category", categoryJson);
 
@@ -38,9 +38,9 @@ public sealed class CategoryDataService : ICategoryDataService
              (await _httpClient.GetStreamAsync($"category/{id}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
     }
 
-    public async Task UpdateCategory(Guid id, CategoryDto categoryDto)
+    public async Task UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto)
     {
-        var categoryJson = new StringContent(JsonSerializer.Serialize(categoryDto), Encoding.UTF8, "application/json");
+        var categoryJson = new StringContent(JsonSerializer.Serialize(updateCategoryDto), Encoding.UTF8, "application/json");
 
         await _httpClient.PutAsync($"category/{id}", categoryJson);
     }

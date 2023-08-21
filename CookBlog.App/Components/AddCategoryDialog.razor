@@ -11,15 +11,15 @@
                 </div>
                 <div class="modal-body">
 
-                    <EditForm Model="@CategoryDto" OnValidSubmit="@HandleValidSubmit">
+                    <EditForm Model="@CreateCategoryDto" OnValidSubmit="@HandleValidSubmit">
 
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
                         <div class="form-group">
                             <label for="fullName">Full name: </label>
-                            <InputText id="fullName" class="form-control" @bind-Value="@CategoryDto.FullName" placeholder="Enter full name"></InputText>
-                            <ValidationMessage For="@(() => CategoryDto.FullName)" />
+                            <InputText id="fullName" class="form-control" @bind-Value="@CreateCategoryDto.FullName" placeholder="Enter full name"></InputText>
+                            <ValidationMessage For="@(() => CreateCategoryDto.FullName)" />
                         </div>
                         <button type="submit" class="btn btn-primary">Save category</button>
                         <a class="btn btn-outline-primary" @onclick="@Close">Close</a>

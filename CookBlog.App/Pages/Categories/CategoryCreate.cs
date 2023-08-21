@@ -2,18 +2,19 @@
 using CookBlog.App.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace CookBlog.App.Pages.Tags;
+namespace CookBlog.App.Pages.Categories;
 
-public partial class TagCreate
+public partial class CategoryCreate
 {
     [Inject]
-    public ITagDataService TagDataService { get; set; }
+    public ICategoryDataService CategoryDataService { get; set; }
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
     [Parameter]
-    public string TagId { get; set; }
-    public TagDto TagDto { get; set; } = new TagDto();
+    public string CategoryId { get; set; }
+    public CategoryDto CategoryDto { get; set; } = new CategoryDto();
+    public CreateCategoryDto CreateCategoryDto { get; set; } = new CreateCategoryDto();
 
     protected string Message = string.Empty;
     protected string StatusClass = string.Empty;
@@ -22,19 +23,19 @@ public partial class TagCreate
     protected async Task HandleValidSubmit()
     {
         Saved = false;
-        var createTagDto = new CreateTagDto { Description = TagDto.Description };
+        var createCategoryDto = new CreateCategoryDto { FullName = CategoryDto.FullName };
 
-        var isAddTag = await TagDataService.AddTagAsync(createTagDto);
-        if (isAddTag)
+        var isAddCategory = await CategoryDataService.AddCategoryAsync(createCategoryDto);
+        if (isAddCategory)
         {
             StatusClass = "alert-success";
-            Message = "New tag added successfully.";
+            Message = "New category added successfully.";
             Saved = true;
         }
         else
         {
             StatusClass = "alert-danger";
-            Message = "Something went wrong adding the new tag. Please try again.";
+            Message = "Something went wrong adding the new category. Please try again.";
             Saved = false;
         }
     }
@@ -44,8 +45,9 @@ public partial class TagCreate
         StatusClass = "alert-danger";
         Message = "There are some validation errors. Please try again.";
     }
+
     protected void NavigateToOverview()
     {
-        NavigationManager.NavigateTo("/tagoverview");
+        NavigationManager.NavigateTo("/categoryoverview");
     }
 }
