@@ -29,7 +29,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Tags:</label>
                 <div class="col-sm-8">
-                    <label type="text" class="form-control-plaintext">@PostDto.Tags</label>
+                    <label type="text" class="form-control-plaintext">@PostDto.Tags.Select(x => x.Description)</label>
                 </div>
             </div>
         </div>
