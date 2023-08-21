@@ -43,7 +43,7 @@ public partial class PostCreate
     protected async Task HandleValidSubmit()
     {
         Saved = false;
-        var CreatePostDto = new CreatePostDto
+        var createPostDto = new CreatePostDto
         {
             Title = PostDto.Title,
             Description = PostDto.Description,
@@ -51,7 +51,7 @@ public partial class PostCreate
             Tags = SelectedTagDtos.Select(tagDto => tagDto.Id).ToList()
         };
 
-        var isAddedPost = await PostDataService.AddPostAsync(CreatePostDto);
+        var isAddedPost = await PostDataService.AddPostAsync(createPostDto);
         if (isAddedPost)
         {
             StatusClass = "alert-success";

@@ -29,7 +29,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Tags:</label>
                 <div class="col-sm-8">
-                    <label type="text" class="form-control-plaintext">@PostDto.Tags.Select(x => x.Description)</label>
+                    <label type="text" class="form-control-plaintext">@string.Join(", ", PostDto.Tags.Select(tag => tag.Description))</label>
                 </div>
             </div>
         </div>

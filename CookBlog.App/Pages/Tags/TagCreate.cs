@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace CookBlog.App.Pages.Tags;
 
-public partial class TagEdit
+public partial class TagCreate
 {
     [Inject]
     public ITagDataService TagDataService { get; set; }
@@ -14,30 +14,29 @@ public partial class TagEdit
     [Parameter]
     public string TagId { get; set; }
     public TagDto TagDto { get; set; } = new TagDto();
-    public UpdateTagDto UpdateTagDto { get; set; } = new UpdateTagDto();
 
     protected string Message = string.Empty;
     protected string StatusClass = string.Empty;
     protected bool Saved;
 
-    protected override async Task OnInitializedAsync()
-    {
-        Saved = false;
-
-        if (Guid.TryParse(TagId, out var tagId))
-        {
-            TagDto = await TagDataService.GetTagAsync(tagId);
-        }
-    }
-
     protected async Task HandleValidSubmit()
     {
-        var updateTagDto = new UpdateTagDto { Description = TagDto.Description };
+        Saved = false;
+        var createTagDto = new CreateTagDto { Description = TagDto.Description };
 
-        await TagDataService.UpdateTagAsync(Guid.Parse(TagId), updateTagDto);
-        StatusClass = "alert-success";
-        Message = "Tag updated successfully.";
-        Saved = true;
+        var isAddTag = await TagDataService.AddTagAsync(createTagDto);
+        if (isAddTag)
+        {
+            StatusClass = "alert-success";
+            Message = "New post added successfully.";
+            Saved = true;
+        }
+        else
+        {
+            StatusClass = "alert-danger";
+            Message = "Something went wrong adding the new post. Please try again.";
+            Saved = false;
+        }
     }
 
     protected void HandleInvalidSubmit()
@@ -45,16 +44,6 @@ public partial class TagEdit
         StatusClass = "alert-danger";
         Message = "There are some validation errors. Please try again.";
     }
-
-    protected async Task DeleteTag()
-    {
-        await TagDataService.DeleteTagAsync(TagDto.Id);
-
-        StatusClass = "alert-success";
-        Message = "Deleted successfully";
-        Saved = true;
-    }
-
     protected void NavigateToOverview()
     {
         NavigationManager.NavigateTo("/tagoverview");

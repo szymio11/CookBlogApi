@@ -6,7 +6,7 @@ public interface ITagDataService
 {
     Task<TagDto?> GetTagAsync(Guid id);
     Task<IEnumerable<TagDto>> GetTagsAsync();
-    Task<bool> AddTagAsync(TagDto tagDto);
+    Task<bool> AddTagAsync(CreateTagDto createTagDto);
     Task DeleteTagAsync(Guid id);
-    Task UpdateTagAsync(Guid id, TagDto tagDto);
+    Task UpdateTagAsync(Guid id, UpdateTagDto updateTagDto);
 }

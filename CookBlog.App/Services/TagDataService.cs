@@ -11,10 +11,10 @@ public class TagDataService : ITagDataService
     public TagDataService(HttpClient httpClient) 
         => _httpClient = httpClient;
 
-    public async Task<bool> AddTagAsync(TagDto tagDto)
+    public async Task<bool> AddTagAsync(CreateTagDto createTagDto)
     {
         var tagJson =
-            new StringContent(JsonSerializer.Serialize(tagDto), Encoding.UTF8, $"application/json");
+            new StringContent(JsonSerializer.Serialize(createTagDto), Encoding.UTF8, $"application/json");
 
         var response = await _httpClient.PostAsync($"tag", tagJson);
 
@@ -38,9 +38,9 @@ public class TagDataService : ITagDataService
               (await _httpClient.GetStreamAsync($"tags"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
     }
 
-    public async Task UpdateTagAsync(Guid id, TagDto tagDto)
+    public async Task UpdateTagAsync(Guid id, UpdateTagDto updateTagDto)
     {
-        var tagJson = new StringContent(JsonSerializer.Serialize(tagDto), Encoding.UTF8, "application/json");
+        var tagJson = new StringContent(JsonSerializer.Serialize(updateTagDto), Encoding.UTF8, "application/json");
 
         await _httpClient.PutAsync($"tag/{id}", tagJson);
     }
