@@ -6,15 +6,15 @@ namespace CookBlog.App.Pages.Categories;
 
 public partial class CategoryEdit
 {
+    [Inject]
+    public ICategoryDataService CategoryDataService { get; set; }
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
     [Parameter]
     public string CategoryId { get; set; }
     public CategoryDto CategoryDto { get; set; } = new CategoryDto();
-
-    [Inject]
-    public ICategoryDataService CategoryDataService { get; set; }
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; }
+    public UpdateCategoryDto UpdateCategoryDto { get; set; } = new UpdateCategoryDto();
 
     protected string Message = string.Empty;
     protected string StatusClass = string.Empty;
@@ -33,29 +33,12 @@ public partial class CategoryEdit
     protected async Task HandleValidSubmit()
     {
         Saved = false;
-        if (CategoryDto.Id == Guid.Empty)
-        {
-            var isAddedCategory = await CategoryDataService.AddCategoryAsync(CategoryDto);
-            if (isAddedCategory)
-            {
-                StatusClass = "alert-success";
-                Message = "New category added successfully.";
-                Saved = true;
-            }
-            else
-            {
-                StatusClass = "alert-danger";
-                Message = "Something went wrong adding the new category. Please try again.";
-                Saved = false;
-            }
-        }
-        else
-        {
-            await CategoryDataService.UpdateCategory(Guid.Parse(CategoryId), CategoryDto);
-            StatusClass = "alert-success";
-            Message = "Category updated successfully.";
-            Saved = true;
-        }
+        var updateCategryDto = new UpdateCategoryDto { FullName = CategoryDto.FullName };
+
+        await CategoryDataService.UpdateCategory(Guid.Parse(CategoryId), updateCategryDto);
+        StatusClass = "alert-success";
+        Message = "Category updated successfully.";
+        Saved = true;
     }
 
     protected void HandleInvalidSubmit()

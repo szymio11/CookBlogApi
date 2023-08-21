@@ -6,7 +6,7 @@ namespace CookBlog.App.Components;
 
 public partial class AddCategoryDialog
 {
-    public CategoryDto CategoryDto { get; set; } = new CategoryDto { FullName = ""};
+    public CreateCategoryDto CreateCategoryDto { get; set; } = new CreateCategoryDto { FullName = ""};
 
     [Inject]
     public ICategoryDataService CategoryDataService { get; set; }
@@ -31,12 +31,12 @@ public partial class AddCategoryDialog
 
     private void ResetDialog()
     {
-        CategoryDto = new CategoryDto { FullName = "" };
+        CreateCategoryDto = new CreateCategoryDto { FullName = "" };
     }
 
     protected async Task HandleValidSubmit()
     {
-        await CategoryDataService.AddCategoryAsync(CategoryDto);
+        await CategoryDataService.AddCategoryAsync(CreateCategoryDto);
         ShowDialog = false;
 
         await CloseEventCallBack.InvokeAsync(true);
