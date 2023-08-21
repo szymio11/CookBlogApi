@@ -9,8 +9,8 @@ public class Post
     public Description Description { get; private set; }
     public Category Category { get; private set; }
     public CategoryId CategoryId { get; private set; }
-    public UserId UserId { get; private set; }
-    public User User { get; private set; }
+    public UserId? UserId { get; private set; }
+    public User? User { get; private set; }
     public IEnumerable<Tag> Tags => _tags;
     public IEnumerable<Comment> Comments => _comments;
 
@@ -22,7 +22,7 @@ public class Post
     }
 
     private Post(PostId id, Title title, Description description, CategoryId categoryId,
-        UserId userId, HashSet<Tag> tags)
+        UserId? userId, HashSet<Tag> tags)
     {
         Id = id;
         Title = title;
@@ -33,7 +33,7 @@ public class Post
     }
 
     public static Post Create(Title title, Description description,
-        CategoryId categoryId, UserId userId, HashSet<Tag> tags)
+        CategoryId categoryId, UserId? userId, HashSet<Tag> tags)
         => new Post(Guid.NewGuid(), title, description, categoryId, userId, tags);
 
     public void Update(Title title, Description description, CategoryId categoryId, HashSet<Tag> tags)

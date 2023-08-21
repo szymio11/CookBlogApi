@@ -6,6 +6,6 @@ public class PostDto
     public string? Title { get; set; }
     public string? Description { get; set; }
     public CategoryDto? Category { get; set; }
-    public HashSet<TagDto>? Tags { get; set; }
+    public IEnumerable<TagDto>? Tags { get; set; }
   //  public HashSet<CommentDto>? Comments { get; set; } = new HashSet<CommentDto>();
 }

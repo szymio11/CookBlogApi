@@ -50,7 +50,7 @@ public partial class PostEdit
             Title = PostDto.Title,
             Description = PostDto.Description,
             CategoryId = Guid.Parse(CategoryId),
-            Tags = SelectedTagDtos.Select(x => x.Id)
+            Tags = SelectedTagDtos.Select(tagDto => tagDto.Id)
         };
 
         await PostDataService.UpdatePostAsync(Guid.Parse(PostId), updatePostDto);

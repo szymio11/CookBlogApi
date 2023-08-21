@@ -14,15 +14,15 @@ public partial class PostCreate
     public ITagDataService TagDataService { get; set; } 
     [Inject]
     public NavigationManager NavigationManager { get; set; } 
+
     [Parameter]
     public string PostId { get; set; } 
-    public CreatePostDto CreatePostDto { get; set; } = new CreatePostDto();  
-    public List<CategoryDto> CategoryDtos { get; set; } = new List<CategoryDto>(); 
-    public List<TagDto> TagDtos { get; set; } = new List<TagDto>(); 
+    public PostDto PostDto { get; set; } = new PostDto();  
+    public IEnumerable<CategoryDto> CategoryDtos { get; set; } = new List<CategoryDto>(); 
+    public IEnumerable<TagDto> TagDtos { get; set; } = new List<TagDto>(); 
+    public IEnumerable<TagDto> SelectedTagDtos { get; set; } = new List<TagDto>(); 
 
-    protected string CategoryId = string.Empty; 
-    protected List<string> TagIds = new List<string>(); 
-
+    protected string CategoryId = string.Empty;  
     protected string Message = string.Empty; 
     protected string StatusClass = string.Empty; 
     protected bool Saved;  
@@ -33,17 +33,23 @@ public partial class PostCreate
         CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
         TagDtos = (await TagDataService.GetTagsAsync()).ToList();
 
-        CreatePostDto = new CreatePostDto { Title = "", Description = "" };
-
-        CategoryId = CreatePostDto.CategoryId.ToString();
-        TagIds = CreatePostDto.Tags.Select(tagId => tagId.ToString()).ToList();
+        PostDto = new PostDto { Title = "", Description = "", Category = new CategoryDto { Id = Guid.Empty, FullName = ""},
+            Tags = new HashSet<TagDto> {new TagDto{Id = Guid.Empty, Description = "" }} };
+        
+        CategoryId = PostDto.Category.ToString();
+        SelectedTagDtos = PostDto.Tags;
     }
 
     protected async Task HandleValidSubmit()
     {
         Saved = false;
-        CreatePostDto.CategoryId = Guid.Parse(CategoryId);
-        CreatePostDto.Tags = TagIds.Select(tagId => Guid.Parse(tagId));
+        var CreatePostDto = new CreatePostDto
+        {
+            Title = PostDto.Title,
+            Description = PostDto.Description,
+            CategoryId = Guid.Parse(CategoryId),
+            Tags = SelectedTagDtos.Select(tagDto => tagDto.Id).ToList()
+        };
 
         var isAddedPost = await PostDataService.AddPostAsync(CreatePostDto);
         if (isAddedPost)

@@ -4,21 +4,21 @@
 @if (!Saved)
 {
     <section class="post-edit">
-        <h1 class="page-title">Details for @CreatePostDto.Title</h1>
-        <EditForm Model="@CreatePostDto" OnValidSubmit="@HandleValidSubmit"
+        <h1 class="page-title">Details for @PostDto.Title</h1>
+        <EditForm Model="@PostDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
             <div class="form-group row">
                 <label for="title" class="col-sm-3">Title: </label>
-                <InputText id="title" class="form-control col-sm-8" @bind-Value="@CreatePostDto.Title" placeholder="Enter title"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => CreatePostDto.Title)" />
+                <InputText id="title" class="form-control col-sm-8" @bind-Value="@PostDto.Title" placeholder="Enter title"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => PostDto.Title)" />
             </div>
 
             <div class="form-group row">
                 <label for="description" class="col-sm-3">Description: </label>
-                <InputText id="description" class="form-control col-sm-8" @bind-Value="@CreatePostDto.Description" placeholder="Enter description"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => CreatePostDto.Description)" />
+                <InputText id="description" class="form-control col-sm-8" @bind-Value="@PostDto.Description" placeholder="Enter description"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => PostDto.Description)" />
             </div>
 
             <div class="form-group row">
@@ -32,13 +32,12 @@
             </div>
 
             <div class="form-group row">
-                <label for="tags" class="col-sm-3">Tags: </label>
-                <InputSelect id="tags" class="form-control col-sm-8" @bind-Value="@TagIds">
-                    @foreach (var tagdto in TagDtos)
-                    {
-                        <option value="@tagdto.Id">@tagdto.Description</option>
-                    }
-                </InputSelect>
+               <MudSelect T= "TagDto" Label="Tags" MultiSelection="true" ToStringFunc="(tag) => tag.Description" @bind-SelectedValues="SelectedTagDtos">
+                   @foreach (var tagDto in TagDtos)
+                {
+                    <MudSelectItem T="TagDto" Value="@tagDto">@tagDto.Description</MudSelectItem>
+                }
+               </MudSelect>
             </div>
 
             <button type="submit" class="btn btn-primary edit-btn">Save post</button>
