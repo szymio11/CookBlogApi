@@ -47,16 +47,6 @@ public partial class CategoryEdit
         Message = "There are some validation errors. Please try again.";
     }
 
-    protected async Task DeleteCategory()
-    {
-        await CategoryDataService.DeleteCategoryAsync(CategoryDto.Id);
-
-        StatusClass = "alert-success";
-        Message = "Deleted successfully";
-
-        Saved = true;
-    }
-
     protected void NavigateToOverview()
     {
         NavigationManager.NavigateTo("/categoryoverview");

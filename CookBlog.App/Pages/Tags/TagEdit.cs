@@ -46,15 +46,6 @@ public partial class TagEdit
         Message = "There are some validation errors. Please try again.";
     }
 
-    protected async Task DeleteTag()
-    {
-        await TagDataService.DeleteTagAsync(TagDto.Id);
-
-        StatusClass = "alert-success";
-        Message = "Deleted successfully";
-        Saved = true;
-    }
-
     protected void NavigateToOverview()
     {
         NavigationManager.NavigateTo("/tagoverview");
