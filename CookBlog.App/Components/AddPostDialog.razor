@@ -1,22 +1,17 @@
-﻿@page "/postcreate"
-@page "/postcreate/{PostId}"
-
-@if (!Saved)
-{
-    <section class="post-edit">
-        <h1 class="page-title">Details for @PostDto.Title</h1>
-        <EditForm Model="@PostDto" OnValidSubmit="@HandleValidSubmit"
-              OnInvalidSubmit="@HandleInvalidSubmit">
+﻿<MudDialog>
+    <DialogContent>
+        <EditForm Model="@PostDto" OnValidSubmit="@HandleValidSubmit">
             <DataAnnotationsValidator />
-            <ValidationSummary></ValidationSummary>
+            <ValidationSummary />
+
             <div class="form-group row">
                 <MudTextField Label="Title" @bind-Value="@PostDto.Title"
-                          For="@(() => PostDto.Title)"></MudTextField>
+                              For="@(() => PostDto.Title)"></MudTextField>
             </div>
 
             <div class="form-group row">
                 <MudTextField Label="Description" @bind-Value="@PostDto.Description"
-                          For="@(() => PostDto.Description)"></MudTextField>
+                              For="@(() => PostDto.Description)"></MudTextField>
             </div>
 
             <div>
@@ -36,15 +31,10 @@
                     }
                 </MudSelect>
             </div>
-
-            <button type="submit" class="btn btn-primary edit-btn">Save post</button>
-
-            <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
-
         </EditForm>
-    </section>
-}
-else
-{
-    <div class="alert @StatusClass">@Message</div>
-}
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="HandleValidSubmit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
