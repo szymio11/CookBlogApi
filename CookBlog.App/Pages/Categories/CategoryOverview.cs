@@ -2,6 +2,7 @@
 using CookBlog.App.DTO;
 using CookBlog.App.Services;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace CookBlog.App.Pages.Categories;
 
@@ -9,6 +10,8 @@ public partial class CategoryOverview
 {
     [Inject]
     public ICategoryDataService CategoryDataService { get; set; }
+    [Inject]
+    public IDialogService DialogService { get; set; }
 
     protected AddCategoryDialog AddCategoryDialog { get; set; }
     public IEnumerable<CategoryDto> CategoryDtos { get; set; }
@@ -27,5 +30,19 @@ public partial class CategoryOverview
     {
         CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
         StateHasChanged();
+    }
+
+    private async Task DeleteCategoryAsync(Guid id)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add($"CategoryId", id);
+        var dialog = await DialogService.ShowAsync<CategoryDelete>("Delete Category", parameters);
+
+        var result = await dialog.Result;
+        if(!result.Cancelled)
+        {
+            CategoryDtos = CategoryDtos.Where(x => x.Id != id).ToList();
+            StateHasChanged();
+        }    
     }
 }

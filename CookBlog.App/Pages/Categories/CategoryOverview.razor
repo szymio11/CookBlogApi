@@ -30,6 +30,7 @@ else
                         <a href="@($"categoryedit/{categoryDto.Id}")" class="btn btn-primary table-btn">
                             <i class="fas fa-edit"></i>
                         </a>
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Primary" @onclick="@(() => {DeleteCategoryAsync(categoryDto.Id);})"></MudIcon>
                     </td>
                 </tr>
             }
@@ -38,4 +39,4 @@ else
 }
 
 <button @onclick="QuickAddCategory" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
-<AddCategoryDialog @ref="AddCategoryDialog" CloseEventCallBack="@AddCategoryDialog_OnDialogClose" ></AddCategoryDialog>
+<AddCategoryDialog @ref="AddCategoryDialog" CloseEventCallBack="@AddCategoryDialog_OnDialogClose"></AddCategoryDialog>

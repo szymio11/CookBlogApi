@@ -17,11 +17,6 @@
 
             <button type="submit" class="btn btn-primary edit-btn">Save category</button>
 
-            @if (TagDto.Id > Guid.Empty)
-            {
-                <a class="btn btn-danger" @onclick="@DeleteTag">Delete</a>
-            }
-
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
         </EditForm>
     </section>
