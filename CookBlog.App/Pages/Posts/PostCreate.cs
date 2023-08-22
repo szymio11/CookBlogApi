@@ -22,7 +22,7 @@ public partial class PostCreate
     public IEnumerable<TagDto> TagDtos { get; set; } = new List<TagDto>(); 
     public IEnumerable<TagDto> SelectedTagDtos { get; set; } = new List<TagDto>(); 
 
-    protected string CategoryId = string.Empty;  
+    protected CategoryDto Category; 
     protected string Message = string.Empty; 
     protected string StatusClass = string.Empty; 
     protected bool Saved;  
@@ -35,8 +35,8 @@ public partial class PostCreate
 
         PostDto = new PostDto { Title = "", Description = "", Category = new CategoryDto { Id = Guid.Empty, FullName = ""},
             Tags = new HashSet<TagDto> {new TagDto{Id = Guid.Empty, Description = "" }} };
-        
-        CategoryId = PostDto.Category.ToString();
+
+        Category = PostDto.Category;
         SelectedTagDtos = PostDto.Tags;
     }
 
@@ -47,7 +47,7 @@ public partial class PostCreate
         {
             Title = PostDto.Title,
             Description = PostDto.Description,
-            CategoryId = Guid.Parse(CategoryId),
+            CategoryId = Category.Id,
             Tags = SelectedTagDtos.Select(tagDto => tagDto.Id).ToList()
         };
 
