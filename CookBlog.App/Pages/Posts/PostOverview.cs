@@ -3,7 +3,6 @@ using CookBlog.App.DTO;
 using CookBlog.App.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using MudBlazor.Extensions;
 
 namespace CookBlog.App.Pages.Posts;
 
@@ -25,12 +24,26 @@ public partial class PostOverview
     private async Task OpenDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<AddPostDialog>("Simple Dialog", options);
+        var dialog = DialogService.Show<AddPostDialog>("Post Quick Add", options);
+
         var result = await dialog.Result;
-        var isSucces = result.Data.As<bool>();
-        if (isSucces)
+        if (!result.Cancelled)
         {
             PostDtos = (await PostDataService.GetPostsAsync()).ToList();
+            StateHasChanged();
+        }
+    }
+
+    private async Task DeletePostAsync(Guid id)
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("PostId", id);
+        var dialog = await DialogService.ShowAsync<PostDelete>($"Delete Post", parameters);
+
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            PostDtos = PostDtos.Where(x => x.Id != id).ToList();
             StateHasChanged();
         }
     }

@@ -35,6 +35,7 @@ else
                         <a href="@($"postedit/{postDto.Id}")" class="btn btn-primary table-btn">
                             <i class="fas fa-edit"></i>
                         </a>
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Primary" @onclick="@(() => {DeletePostAsync(postDto.Id);})"></MudIcon>
                     </td>
                 </tr>
             }
