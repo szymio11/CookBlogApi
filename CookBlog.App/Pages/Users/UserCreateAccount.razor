@@ -1,0 +1,51 @@
+﻿@page "/usercreateaccount" 
+@page "/usercreateaccount/{UserId}"
+
+@if (!Saved)
+{
+    <section class="user-create-account">
+        <h1 class="page-title">Details for @UserDto.UserName</h1>
+        <EditForm Model="@UserDto" OnValidSubmit="@HandleValidSubmit"
+              OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary></ValidationSummary>
+            <div class="form-group">
+                <label for="userName" class="col-sm-3"></label>
+                <InputText id="userName" class="form-control col-sm-8" @bind-Value="@UserDto.UserName" placeholder="UserName"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => UserDto.UserName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="col-sm-3"></label>
+                <InputText id="email" class="form-control col-sm-8" @bind-Value="@UserDto.Email" placeholder="Email"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => UserDto.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label for="Password" class="col-sm-3"></label>
+                <InputText type="password" id="password" class="form-control col-sm-8" @bind-Value="@UserDto.Password" placeholder="Password"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => UserDto.Password)" />
+            </div>
+
+            <div class="form-group">
+                <label for="role" class="col-sm-3"></label>
+                <InputText id="role" class="form-control col-sm-8" @bind-Value="@UserDto.Role" placeholder="Role"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => UserDto.Role)" />
+            </div>
+
+            <div class="form-group">
+                <label for="fullName" class="col-sm-3"></label>
+                <InputText id="fullName" class="form-control col-sm-8" @bind-Value="@UserDto.FullName" placeholder="FullName"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => UserDto.Password)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary edit-btn">Save post</button>
+
+            <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+        </EditForm>
+    </section>
+}
+else
+{
+    <div class="alert @StatusClass">@Message</div>
+}
