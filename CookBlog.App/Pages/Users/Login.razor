@@ -1,0 +1,31 @@
+﻿@page "/login"
+@page "/login/{UserId}"
+
+<div class="ma-6 d-flex justify-center">
+    <MudChip Color="Color.Primary">
+        <h3>User Registration Form</h3>
+    </MudChip>
+</div>
+<div class="ma-6 d-flex justify-center">
+    <MudCard Widht="500px">
+        <EditForm Model="LoginUserDto">
+            <DataAnnotationsValidator />
+            <ValidationSummary></ValidationSummary>
+            <MudCardContent>
+
+                <MudTextField @bind-Value="LoginUserDto.Email"
+                              For="@(() => LoginUserDto.Email)"
+                              Immediate=" true"
+                              Label="Email"></MudTextField>
+                <MudTextField @bind-Value="LoginUserDto.Password"
+                              For="@(() => LoginUserDto.Password)"
+                              Immediate=" true"
+                              Label="Password" InputType="InputType.Password"></MudTextField>
+
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@HandleLogin">Login</MudButton>
+            </MudCardActions>
+        </EditForm>
+    </MudCard>
+</div>
