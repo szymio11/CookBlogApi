@@ -1,0 +1,17 @@
+﻿@page "/logout"
+
+@using CookBlog.App.Services;
+
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IUserDataService UserDataService
+
+<text>Logging out...</text>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await UserDataService.LogoutAsync();
+        NavigationManager.NavigateTo("login");
+    }
+}
