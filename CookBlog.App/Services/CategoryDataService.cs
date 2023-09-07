@@ -1,6 +1,5 @@
 ﻿using CookBlog.App.DTO;
-using System.Text;
-using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace CookBlog.App.Services;
 
@@ -13,10 +12,7 @@ public sealed class CategoryDataService : ICategoryDataService
 
     public async Task<bool> AddCategoryAsync(CreateCategoryDto createCategorytDto)
     {
-        var categoryJson =
-            new StringContent(JsonSerializer.Serialize(createCategorytDto), Encoding.UTF8, $"application/json");
-
-        var response = await _httpClient.PostAsync($"category", categoryJson);
+        var response = await _httpClient.PostAsJsonAsync($"category", createCategorytDto);
 
         return response.IsSuccessStatusCode;
     }
@@ -26,22 +22,14 @@ public sealed class CategoryDataService : ICategoryDataService
         await _httpClient.DeleteAsync($"category/{id}");
     }
 
-    public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
-    {
-        return await JsonSerializer.DeserializeAsync<IEnumerable<CategoryDto>>
-              (await _httpClient.GetStreamAsync($"categories"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-    }
+    public async Task<IEnumerable<CategoryDto>?> GetCategoriesAsync() 
+        => await _httpClient.GetFromJsonAsync<IEnumerable<CategoryDto>?>("categories");
 
-    public async Task<CategoryDto?> GetCategoryAsync(Guid id)
-    {
-        return await JsonSerializer.DeserializeAsync<CategoryDto>
-             (await _httpClient.GetStreamAsync($"category/{id}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-    }
+    public async Task<CategoryDto?> GetCategoryAsync(Guid id) 
+        => await _httpClient.GetFromJsonAsync<CategoryDto>($"category/{id}");
 
     public async Task UpdateCategory(Guid id, UpdateCategoryDto updateCategoryDto)
     {
-        var categoryJson = new StringContent(JsonSerializer.Serialize(updateCategoryDto), Encoding.UTF8, "application/json");
-
-        await _httpClient.PutAsync($"category/{id}", categoryJson);
+        await _httpClient.PutAsJsonAsync($"category/{id}", updateCategoryDto);
     }
 }

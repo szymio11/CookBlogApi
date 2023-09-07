@@ -1,6 +1,4 @@
 ﻿using CookBlog.App.DTO;
-using System.Text.Json;
-using System.Text;
 using System.Net.Http.Json;
 using CookBlog.App.Data;
 
@@ -22,19 +20,13 @@ public class UserDataService : IUserDataService
 
     public async Task<bool> AddUserAsync(CreateUserDto createUserDto)
     {
-        var userJson =
-                new StringContent(JsonSerializer.Serialize(createUserDto), Encoding.UTF8, $"application/json");
-
-        var response = await _httpClient.PostAsync($"users", userJson);
+        var response = await _httpClient.PostAsJsonAsync($"users", createUserDto);
 
         return response.IsSuccessStatusCode;
     }
 
     public async Task<JwtDto> LoginAsync(LoginUserDto loginUserDto)
     {
-       // var loginUserJson =
-       //         new StringContent(JsonSerializer.Serialize(loginUserDto), Encoding.UTF8, $"application/json");
-
         var response = await _httpClient.PostAsJsonAsync($"Users/sign-in", loginUserDto);
         var result = await response.Content.ReadFromJsonAsync<JwtDto>();
         await _tokenService.SetToken(result);

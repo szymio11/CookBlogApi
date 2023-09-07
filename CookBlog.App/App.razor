@@ -1,4 +1,4 @@
-﻿<CascadingAuthenticationState>
+﻿<CascadingAuthenticationState> 
     <Router AppAssembly="@typeof(App).Assembly">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
@@ -6,7 +6,8 @@
                     <text>Authorizing user, please wait...</text>
                 </Authorizing>
                 <NotAuthorized>
-                    <text>Sorry, you are not authorized to access this page.</text>
+                    <h1>Sorry, you are not authorized to access this page.</h1>
+                    <p>You may want to try logging in (as someone with the necessary authorization).</p>
                 </NotAuthorized>
             </AuthorizeRouteView>
         </Found>

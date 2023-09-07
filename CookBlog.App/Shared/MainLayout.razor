@@ -9,7 +9,17 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">My Cook Blog | Simple recipes, let's try to cook!</MudText>
         <MudSpacer />
-@*        <MudLink Color="Color.Inherit" Underline="Underline.None" Class="mr-2" Href="/login">Login</MudLink>*@
+        <AuthorizeView>
+
+            <Authorized>
+        <span>Hello, @context.User.Identity.Name</span>
+                <MudLink Color="Color.Inherit" Underline="Underline.None" Class="mr-2" Href="/logout">Logout</MudLink>
+            </Authorized>
+            <NotAuthorized>
+                <MudLink Color="Color.Inherit" Underline="Underline.None" Class="mr-2" Href="/login">Login</MudLink>
+                <MudLink Color="Color.Inherit" Underline="Underline.None" Class="mr-2" Href="/usercreateaccount">Registration</MudLink>
+            </NotAuthorized>
+        </AuthorizeView>
         @*<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />*@
     </MudAppBar>
 

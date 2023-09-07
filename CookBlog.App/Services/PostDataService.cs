@@ -1,6 +1,5 @@
 ﻿using CookBlog.App.DTO;
-using System.Text;
-using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace CookBlog.App.Services;
 
@@ -13,10 +12,7 @@ public sealed class PostDataService : IPostDataService
 
     public async Task<bool> AddPostAsync(CreatePostDto createPostDto)
     {
-        var postJson =
-            new StringContent(JsonSerializer.Serialize(createPostDto), Encoding.UTF8, $"application/json");
-
-        var response = await _httpClient.PostAsync($"post", postJson);
+        var response = await _httpClient.PostAsJsonAsync($"post", createPostDto);
 
         return response.IsSuccessStatusCode;
     }
@@ -26,27 +22,15 @@ public sealed class PostDataService : IPostDataService
         await _httpClient.DeleteAsync($"post/{id}");
     }
 
-    public async Task<PostDto?> GetPostAsync(Guid id)
-    {
-        return await JsonSerializer.DeserializeAsync<PostDto>
-            (await _httpClient.GetStreamAsync($"post/{id}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-    }
+    public async Task<PostDto?> GetPostAsync(Guid id) 
+        => await _httpClient.GetFromJsonAsync<PostDto?>($"post/{id}");
 
-    public async Task<IEnumerable<PostDto>> GetPostsAsync()
-    {
-        return await JsonSerializer.DeserializeAsync<IEnumerable<PostDto>>
-            (await _httpClient.GetStreamAsync($"posts"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-    }
+    public async Task<IEnumerable<PostDto>?> GetPostsAsync() 
+        => await _httpClient.GetFromJsonAsync<IEnumerable<PostDto>?>("posts");
 
     public async Task UpdatePostAsync(Guid id, UpdatePostDto updatePostDto)
     {
-        var serializer = JsonSerializer.Serialize(updatePostDto);
-
-        var postJson = new StringContent(serializer, Encoding.UTF8, "application/json");
-
-        var result = await _httpClient.PutAsync($"post/{id}", postJson);
-
-        var r = await result.Content.ReadAsStringAsync();
+        await _httpClient.PutAsJsonAsync($"post/{id}", updatePostDto);
     }
 
 }
