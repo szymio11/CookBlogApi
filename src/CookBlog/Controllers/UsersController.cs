@@ -3,7 +3,6 @@ using CookBlog.Api.Application.Commands;
 using CookBlog.Api.Application.DTO;
 using CookBlog.Api.Application.Queries;
 using CookBlog.Api.Application.Security;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -47,7 +46,7 @@ public class UsersController : ControllerBase
         return user;
     }
 
-    [Authorize]
+    //[Authorize]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [HttpGet("me")]

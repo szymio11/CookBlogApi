@@ -1,6 +1,5 @@
 ﻿using CookBlog.App.DTO;
-using System.Text;
-using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace CookBlog.App.Services;
 
@@ -8,15 +7,12 @@ public class TagDataService : ITagDataService
 {
     private readonly HttpClient _httpClient;
 
-    public TagDataService(HttpClient httpClient) 
+    public TagDataService(HttpClient httpClient)
         => _httpClient = httpClient;
 
     public async Task<bool> AddTagAsync(CreateTagDto createTagDto)
     {
-        var tagJson =
-            new StringContent(JsonSerializer.Serialize(createTagDto), Encoding.UTF8, $"application/json");
-
-        var response = await _httpClient.PostAsync($"tag", tagJson);
+        var response = await _httpClient.PostAsJsonAsync($"tag", createTagDto);
 
         return response.IsSuccessStatusCode;
     }
@@ -27,21 +23,13 @@ public class TagDataService : ITagDataService
     }
 
     public async Task<TagDto?> GetTagAsync(Guid id)
-    {
-        return await JsonSerializer.DeserializeAsync<TagDto>
-             (await _httpClient.GetStreamAsync($"tag/{id}"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-    }
+        => await _httpClient.GetFromJsonAsync<TagDto?>($"tag/{id}");
 
-    public async Task<IEnumerable<TagDto>> GetTagsAsync()
-    {
-        return await JsonSerializer.DeserializeAsync<IEnumerable<TagDto>>
-              (await _httpClient.GetStreamAsync($"tags"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-    }
+    public async Task<IEnumerable<TagDto>?> GetTagsAsync() 
+        => await _httpClient.GetFromJsonAsync<IEnumerable<TagDto>?>($"tags");
 
     public async Task UpdateTagAsync(Guid id, UpdateTagDto updateTagDto)
     {
-        var tagJson = new StringContent(JsonSerializer.Serialize(updateTagDto), Encoding.UTF8, "application/json");
-
-        await _httpClient.PutAsync($"tag/{id}", tagJson);
+        await _httpClient.PutAsJsonAsync($"tag/{id}", updateTagDto);
     }
 }

@@ -2,12 +2,14 @@
 using CookBlog.Api.Application.Commands;
 using CookBlog.Api.Application.DTO;
 using CookBlog.Api.Application.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookBlog.Api.Controllers;
 
+[Authorize]
 [ApiController]
-//[Authorize]
+
 public class TagController : ControllerBase
 {
     private readonly ICommandHandler<CreateTag> _createTagHandler;
