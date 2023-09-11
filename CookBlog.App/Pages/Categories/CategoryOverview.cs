@@ -21,15 +21,17 @@ public partial class CategoryOverview
         CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
     }
 
-    protected void QuickAddCategory()
+    private async Task OpenDialog()
     {
-        AddCategoryDialog.Show();
-    }
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<AddCategoryDialog>("Dodanie Kategorii:", options);
 
-    public async void AddCategoryDialog_OnDialogClose()
-    {
-        CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
-        StateHasChanged();
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
+            StateHasChanged();
+        }
     }
 
     private async Task DeleteCategoryAsync(Guid id)

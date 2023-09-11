@@ -1,7 +1,6 @@
 ﻿@page "/categoryoverview"
 
-
-<h1 class="page-title">All categories </h1>
+@inject NavigationManager NavigationManager
 
 @if (CategoryDtos == null)
 {
@@ -9,35 +8,37 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var categoryDto in CategoryDtos)
-            {
-                <tr>
-                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{categoryDto.Id}-small.jpg")" class="rounded-circle" /></td>
-                    <td>@categoryDto.FullName</td>
-                    <td>
-                        <a href="@($"categorydetail/{categoryDto.Id}")" class="btn btn-primary table-btn">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                        <a href="@($"categoryedit/{categoryDto.Id}")" class="btn btn-primary table-btn">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Primary" @onclick="@(() => {DeleteCategoryAsync(categoryDto.Id);})"></MudIcon>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+    <MudContainer Class="d-flex ma-8">
+        @foreach (var item in CategoryDtos)
+        {
+            <MudCard width="250px;" Class="mr-2">
 
-<button @onclick="QuickAddCategory" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;+&nbsp;&nbsp;</button>
-<AddCategoryDialog @ref="AddCategoryDialog" CloseEventCallBack="@AddCategoryDialog_OnDialogClose"></AddCategoryDialog>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="Color.Secondary">I</MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6" Color="Color.Dark">@item.FullName</MudText>
+                        <MudText Typo="Typo.body2">Pyszne i proste!</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardMedia Image="images/pilars.jpg" Height="250" />
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">Przekonaj sie, że dobrze trafiłeś:</MudText>
+                    <MudButton Variant="Variant.Text">Przejdz dalej...</MudButton>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Details" Label="Details" Color="Color.Info" @onclick="@(() => {NavigationManager.NavigateTo($"/categorydetail/{item.Id}");})"></MudIconButton>
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Label="Edit" Color="Color.Tertiary" @onclick="@(() => {NavigationManager.NavigateTo($"/categoryedit/{item.Id}");})"></MudIconButton>
+                    <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Error" @onclick="@(() => {DeleteCategoryAsync(item.Id);})"></MudIcon>
+                </MudCardActions>
+            </MudCard>
+        }
+    </MudContainer>
+}
+<div Class="btn btn-Primary table-primary quick-add-btn">
+    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" @onclick="OpenDialog" />
+</div>
