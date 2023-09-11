@@ -4,15 +4,14 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="1">
+<MudLayout Class="d-flex align-center justify-center mud-width-full py-8">
+    <MudAppBar>
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">My Cook Blog | Simple recipes, let's try to cook!</MudText>
-        <MudSpacer />
         <AuthorizeView>
-
             <Authorized>
-        <span>Hello, @context.User.Identity.Name</span>
+                <MudSpacer />
+@*                <span>Hello, @context.User.Identity.Name</span>*@
                 <MudLink Color="Color.Inherit" Underline="Underline.None" Class="mr-2" Href="/logout">Logout</MudLink>
             </Authorized>
             <NotAuthorized>
@@ -22,7 +21,6 @@
         </AuthorizeView>
         @*<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />*@
     </MudAppBar>
-
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu />
     </MudDrawer>

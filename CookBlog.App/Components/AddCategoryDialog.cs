@@ -1,6 +1,7 @@
 ﻿using CookBlog.App.DTO;
 using CookBlog.App.Services;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace CookBlog.App.Components;
 
@@ -11,34 +12,29 @@ public partial class AddCategoryDialog
 
     [Parameter]
     public EventCallback<bool> CloseEventCallBack { get; set; }
-    public CreateCategoryDto CreateCategoryDto { get; set; } = new CreateCategoryDto { FullName = "" };
 
-    public bool ShowDialog { get; set; }
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+    public CreateCategoryDto CreateCategoryDto { get; set; } = new CreateCategoryDto();
+    public CategoryDto CategoryDto { get; set; } = new CategoryDto();
 
-    public void Show()
-    {
-        ResetDialog();
-        ShowDialog = true;
-        StateHasChanged();
-    }
-
-    public void Close()
-    {
-        ShowDialog = false;
-        StateHasChanged();
-    }
-
-    private void ResetDialog()
-    {
-        CreateCategoryDto = new CreateCategoryDto { FullName = "" };
-    }
 
     protected async Task HandleValidSubmit()
     {
-        await CategoryDataService.AddCategoryAsync(CreateCategoryDto);
-        ShowDialog = false;
+        var createCategoryDto = new CreateCategoryDto
+        {
+            FullName = CategoryDto.FullName
+        };
+        await CategoryDataService.AddCategoryAsync(createCategoryDto);
 
         await CloseEventCallBack.InvokeAsync(true);
+        StateHasChanged();
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+
+    public void Cancel()
+    {
+        MudDialog.Cancel();
         StateHasChanged();
     }
 }
