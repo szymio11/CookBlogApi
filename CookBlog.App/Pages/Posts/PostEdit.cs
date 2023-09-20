@@ -41,7 +41,7 @@ public partial class PostEdit
         CategoryId = PostDto.Category.Id.ToString();
         SelectedTagDtos = PostDto.Tags;
     }
-   
+    
     protected async Task HandleValidSubmit()
     {
         Saved = false;

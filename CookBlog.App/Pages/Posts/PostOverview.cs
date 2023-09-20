@@ -24,7 +24,7 @@ public partial class PostOverview
     private async Task OpenDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<AddPostDialog>("Post Quick Add", options);
+        var dialog = DialogService.Show<AddPostDialog>("", options);
 
         var result = await dialog.Result;
         if (!result.Cancelled)

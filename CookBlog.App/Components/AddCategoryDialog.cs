@@ -9,12 +9,12 @@ public partial class AddCategoryDialog
 {
     [Inject]
     public ICategoryDataService CategoryDataService { get; set; }
-
     [Parameter]
     public EventCallback<bool> CloseEventCallBack { get; set; }
 
     [CascadingParameter]
     MudDialogInstance MudDialog { get; set; }
+
     public CreateCategoryDto CreateCategoryDto { get; set; } = new CreateCategoryDto();
     public CategoryDto CategoryDto { get; set; } = new CategoryDto();
 

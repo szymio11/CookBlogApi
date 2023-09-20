@@ -4,16 +4,19 @@ using CookBlog.Api.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CookBlog.Api.Infrastructure.DAL.Migrations
+namespace CookBlog.Infrastructure.DAL.Migrations
 {
     [DbContext(typeof(MyCookBlogDbContext))]
-    partial class MyCookBlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230914095621_PostImage")]
+    partial class PostImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

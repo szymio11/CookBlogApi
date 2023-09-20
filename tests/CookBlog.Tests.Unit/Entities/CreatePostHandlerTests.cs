@@ -24,7 +24,7 @@ public class CreatePostHandlerTests
     public void Should_Create_Post()
     {
         //Arrange
-        var createPost = new CreatePost("Cake", "It's delicious",
+        var createPost = new CreatePost("Cake", "Cake" , "It's delicious",
             new CategoryId(Guid.NewGuid()), new UserId(Guid.NewGuid()), new HashSet<Guid>());
         _postRepoMock.Setup(x => x.AddAsync(It.IsAny<Post>()));
 

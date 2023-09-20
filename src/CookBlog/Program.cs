@@ -16,7 +16,7 @@ builder.Host.UseSerilog((context, loggerConfiguration) =>
     loggerConfiguration.WriteTo
         .Console();
     // .WriteTo
-    // .File("logs.txt")
+    // .FileContents("logs.txt")
     // .WriteTo
     // .Seq("http://localhost:5341");
 });

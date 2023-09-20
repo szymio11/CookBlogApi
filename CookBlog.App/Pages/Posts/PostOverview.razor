@@ -1,6 +1,6 @@
 ﻿@page "/postoverview"
 
-<h1 class="page-title">All posts</h1>
+@inject NavigationManager NavigationManager
 
 @if (PostDtos == null)
 {
@@ -8,38 +8,39 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Tags</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var postDto in PostDtos)
+    <MudContainer Class="d-flex ma-8">
+       <div class="d-flex flex-wrap justify-center">
+            @foreach (var item in PostDtos)
             {
-                <tr>
-                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{postDto.Id}-small.jpg")" class="rounded-circle" /></td>
-                    <td>@postDto.Title</td>
-                    <td>@postDto.Description</td>
-                    <td>@postDto.Category.FullName</td>
-                    <td>@string.Join(", ", postDto.Tags.Select(tag => tag.Description))</td>
-                    <td>
-                      <a href="@($"postdetail/{postDto.Id}")" class="btn btn-primary table-btn">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                        <a href="@($"postedit/{postDto.Id}")" class="btn btn-primary table-btn">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Primary" @onclick="@(() => {DeletePostAsync(postDto.Id);})"></MudIcon>
-                    </td>
-                </tr>
+                <MudCard width="250px;" Class="ma-2">
+
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6" Color="Color.Dark">@item.Title</MudText>
+                            <MudText Typo="Typo.body2">Pyszne i proste!</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                @*    <MudCardMedia Image="@(item.Image) Height="250" />
+*@
+                    <MudCardContent>
+                        <MudText Color="Color.Dark">@item.Description</MudText>
+                        <MudText Color="Color.Dark">@item.Category.FullName</MudText>
+                        <MudText Color="Color.Dark">@string.Join(", ", item.Tags.Select(x=>x.Description) )</MudText>
+                    </MudCardContent>
+
+                    <MudCardActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Details" Label="Details" Color="Color.Info" @onclick="@(() => {NavigationManager.NavigateTo($"/postdetail/{item.Id}");})"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Label="Edit" Color="Color.Tertiary" @onclick="@(() => {NavigationManager.NavigateTo($"/postedit/{item.Id}");})"></MudIconButton>
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Error" @onclick="@(() => {DeletePostAsync(item.Id);})"></MudIcon>
+                    </MudCardActions>
+                </MudCard>
             }
-        </tbody>
-    </table>
+       </div>
+    </MudContainer>
 }
-<MudButton @onclick="OpenDialog" Variant="Variant.Outlined" Color="Color.Primary">Add post</MudButton>
+<div Class="btn btn-Primary table-primary quick-add-btn">
+    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" @onclick="OpenDialog" />
+</div>

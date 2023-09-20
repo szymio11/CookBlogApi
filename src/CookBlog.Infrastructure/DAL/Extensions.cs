@@ -2,6 +2,8 @@
 using CookBlog.Api.Core.Repositories;
 using CookBlog.Api.Infrastructure.DAL.Decorators;
 using CookBlog.Api.Infrastructure.DAL.Repositories;
+using CookBlog.Core.Services;
+using CookBlog.Infrastructure.DAL.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,7 @@ internal static class Extensions
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUnitOfWork, MSqlUnitOfWork>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IFileService, FileService>();
 
         services.Configure<RedisOptions>(configuration.GetRequiredSection(SectionName));
         var redisOptions = configuration.GetOptions<RedisOptions>(SectionName);

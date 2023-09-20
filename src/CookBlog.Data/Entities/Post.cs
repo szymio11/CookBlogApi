@@ -7,6 +7,7 @@ public class Post
     public PostId Id { get; }
     public Title Title { get; private set; }
     public Description Description { get; private set; }
+    public ImagePath? ImagePath { get; private set; }
     public Category Category { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public UserId? UserId { get; private set; }
@@ -21,20 +22,21 @@ public class Post
     {
     }
 
-    private Post(PostId id, Title title, Description description, CategoryId categoryId,
+    private Post(PostId id, Title title, Description description, ImagePath? imagePath, CategoryId categoryId,
         UserId? userId, HashSet<Tag> tags)
     {
         Id = id;
         Title = title;
         Description = description;
+        ImagePath = imagePath;
         CategoryId = categoryId;
         UserId = userId;
         _tags = tags;
     }
 
-    public static Post Create(Title title, Description description,
+    public static Post Create(Title title, Description description, ImagePath? imagePath,
         CategoryId categoryId, UserId? userId, HashSet<Tag> tags)
-        => new Post(Guid.NewGuid(), title, description, categoryId, userId, tags);
+        => new Post(Guid.NewGuid(), title, description, imagePath, categoryId, userId, tags);
 
     public void Update(Title title, Description description, CategoryId categoryId, HashSet<Tag> tags)
     {
@@ -53,5 +55,10 @@ public class Post
         {
             _tags.Add(newTag);
         }
+    } 
+    
+    public void ChangeImage(ImagePath imagePath)
+    {
+        ImagePath = imagePath;
     }
 }

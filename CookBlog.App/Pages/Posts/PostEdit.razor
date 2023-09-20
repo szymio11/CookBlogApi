@@ -19,8 +19,8 @@
                 <label for="description" class="col-sm-3">Description: </label>
                 <InputText id="description" class="form-control col-sm-8" @bind-Value="@PostDto.Description" placeholder="Enter description"></InputText>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => PostDto.Description)" />
-            </div>
-
+            </div> 
+            
             <div class="form-group row">
                 <label for="categoryId" class="col-sm-3">Category: </label>
                 <InputSelect id="categorCategoryIdyDto" class="form-control col-sm-8" @bind-Value="@CategoryId">
@@ -38,7 +38,12 @@
                         <MudSelectItem T="TagDto" Value="@tagDto">@tagDto.Description</MudSelectItem>
                     }
                 </MudSelect>
-            </div>      
+            </div>
+
+            <div class="form-group row">
+                <label for="image" class="col-sm-3">Image: </label>
+                <PostUpdateImage PostId="Guid.Parse(PostId)"></PostUpdateImage>
+            </div>
 
             <button type="submit" class="btn btn-primary edit-btn">Save post</button>
 

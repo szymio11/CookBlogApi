@@ -11,9 +11,9 @@ public partial class AddTagDialog
 
     [Parameter]
     public EventCallback<bool> CloseEventCallBack { get; set; }
-    public CreateTagDto CreateTagDto { get; set; } = new CreateTagDto { Description = ""};
 
     public bool ShowDialog { get; set; }
+    public CreateTagDto CreateTagDto { get; set; } = new CreateTagDto { Description = ""};
 
     public void Show()
     {
