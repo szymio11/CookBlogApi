@@ -1,0 +1,27 @@
+﻿@using System.IO;
+@using CookBlog.App.Services;
+
+@inject IPostDataService PostDataService
+
+<div class="row">
+
+    <div class="d-flex justify-left mt-4">
+        <MudImage ObjectFit="ObjectFit.Cover" Height="200" Width="250" Src="@_image" Elevation="25" Class="rounded-lg" />
+    </div>
+
+</div>
+
+@code
+{
+    [Parameter]
+    public Guid PostId { get; set; }
+
+    string _image = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _image = await PostDataService.GetImage(PostId);
+
+        await base.OnInitializedAsync();
+    }
+}

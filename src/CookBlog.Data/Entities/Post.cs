@@ -22,21 +22,20 @@ public class Post
     {
     }
 
-    private Post(PostId id, Title title, Description description, ImagePath? imagePath, CategoryId categoryId,
+    private Post(PostId id, Title title, Description description, CategoryId categoryId,
         UserId? userId, HashSet<Tag> tags)
     {
         Id = id;
         Title = title;
         Description = description;
-        ImagePath = imagePath;
         CategoryId = categoryId;
         UserId = userId;
         _tags = tags;
     }
 
-    public static Post Create(Title title, Description description, ImagePath? imagePath,
+    public static Post Create(Title title, Description description,
         CategoryId categoryId, UserId? userId, HashSet<Tag> tags)
-        => new Post(Guid.NewGuid(), title, description, imagePath, categoryId, userId, tags);
+        => new Post(Guid.NewGuid(), title, description, categoryId, userId, tags);
 
     public void Update(Title title, Description description, CategoryId categoryId, HashSet<Tag> tags)
     {

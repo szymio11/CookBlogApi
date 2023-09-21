@@ -14,7 +14,7 @@ public class UpdatePostTests
         var categoryId = new CategoryId(Guid.NewGuid());
         var userId = new UserId(Guid.NewGuid());
         var tags = new HashSet<Tag> { Tag.Create("słabe"), Tag.Create("świetne"), Tag.Create("mrożone") };
-        var post = Post.Create("Sugar", "sasas", "Note very sweet", categoryId, userId, tags);
+        var post = Post.Create("Sugar", "Note very sweet", categoryId, userId, tags);
         var newTags = new HashSet<Tag> { Tag.Create("mrożone") };
 
         //Act
@@ -34,7 +34,7 @@ public class UpdatePostTests
     {
         //Arrange
         var tags = new HashSet<Tag> { Tag.Create("pyszne") };
-        var post = Post.Create("Sugar", "sasa", "Note very sweet", Guid.NewGuid(), Guid.NewGuid(), tags);
+        var post = Post.Create("Sugar", "Note very sweet", Guid.NewGuid(), Guid.NewGuid(), tags);
         var newTags = new HashSet<Tag> { Tag.Create("mrożone"), Tag.Create("tragedia") };
 
         //Act
@@ -49,7 +49,7 @@ public class UpdatePostTests
     {
         //Arrange
         var tags = new HashSet<Tag> { Tag.Create("pyszne") };
-        var post = Post.Create("Sugar", "sasa", "Note very sweet", Guid.NewGuid(), Guid.NewGuid(), tags);
+        var post = Post.Create("Sugar", "Note very sweet", Guid.NewGuid(), Guid.NewGuid(), tags);
         var newTags = new HashSet<Tag> { tags.First(), Tag.Create("tragedia") };
 
         //Act

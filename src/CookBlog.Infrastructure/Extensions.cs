@@ -6,6 +6,8 @@ using CookBlog.Api.Infrastructure.Exceptions;
 using CookBlog.Api.Infrastructure.Logging;
 using CookBlog.Api.Infrastructure.Security;
 using CookBlog.Api.Infrastructure.Time;
+using CookBlog.Core.Abstractions;
+using CookBlog.Infrastructure.DAL.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +29,8 @@ public static class Extensions
 
         services
             .AddMSql(configuration)
-            .AddSingleton<IClock, Clock>();
+            .AddSingleton<IClock, Clock>()
+            .AddSingleton<IFileService, FileService>();
 
         services.AddCustomLogging();
         services.AddSecurity();

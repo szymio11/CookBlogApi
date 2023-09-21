@@ -2,6 +2,9 @@
 using CookBlog.Api.Core.Repositories;
 using CookBlog.Api.Infrastructure.DAL.Decorators;
 using CookBlog.Api.Infrastructure.DAL.Repositories;
+using CookBlog.Core.Abstractions;
+using CookBlog.Infrastructure.DAL;
+using CookBlog.Infrastructure.DAL.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +14,23 @@ namespace CookBlog.Api.Infrastructure.DAL;
 internal static class Extensions
 {
     private const string OptionsSectionName = "MSql";
-    private const string SectionName = "Redis";
+    private const string OptionsRedisName = "Redis";
+    private const string OptionsExtensionFileName = "ExtensionsFile";
 
     public static IServiceCollection AddMSql(this IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<ExtensionFileOptions>(configuration.GetRequiredSection(OptionsExtensionFileName));
+        var extensionsFile = configuration.GetOptions<ExtensionFileOptions>(OptionsExtensionFileName);
+        services.AddSingleton(extensionsFile);
+
         services.Configure<MSqlOptions>(configuration.GetRequiredSection(OptionsSectionName));
         var mSqlOptions = configuration.GetOptions<MSqlOptions>(OptionsSectionName);
         services.AddDbContext<MyCookBlogDbContext>(x => x.UseSqlServer(mSqlOptions.ConnectionString));
+
+        services.Configure<RedisOptions>(configuration.GetRequiredSection(OptionsRedisName));
+        var redisOptions = configuration.GetOptions<RedisOptions>(OptionsRedisName);
+        services.AddStackExchangeRedisCache(redisCacheOptions => { redisCacheOptions.Configuration = redisOptions.Url; });
+
         services.AddScoped<IUserRepository, MSqlUserRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
@@ -25,10 +38,6 @@ internal static class Extensions
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUnitOfWork, MSqlUnitOfWork>();
         services.AddScoped<ITagRepository, TagRepository>();
-
-        services.Configure<RedisOptions>(configuration.GetRequiredSection(SectionName));
-        var redisOptions = configuration.GetOptions<RedisOptions>(SectionName);
-        services.AddStackExchangeRedisCache(redisCacheOptions => { redisCacheOptions.Configuration = redisOptions.Url; });
 
   //      services.Decorate<ITagRepository, CacheTagRepository>();
         services.TryDecorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));

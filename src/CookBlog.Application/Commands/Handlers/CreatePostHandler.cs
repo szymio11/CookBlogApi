@@ -20,7 +20,7 @@ public sealed class CreatePostHandler : ICommandHandler<CreatePost>
     {
         var tags = await _tagRepository.GetTags(command.Tags);
 
-        var post = Post.Create(command.Title, command.Description, command.ImagePath, command.CategoryId, command.UserId, tags.ToHashSet());
+        var post = Post.Create(command.Title, command.Description, command.CategoryId, command.UserId, tags.ToHashSet());
 
         await _postRepository.AddAsync(post);
     }

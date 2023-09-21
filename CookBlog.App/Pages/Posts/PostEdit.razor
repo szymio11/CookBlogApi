@@ -9,21 +9,21 @@
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
-            <div class="form-group row">
+            <div class="form-group row mt-2">
                 <label for="title" class="col-sm-3">Title: </label>
                 <InputText id="title" class="form-control col-sm-8" @bind-Value="@PostDto.Title" placeholder="Enter title"></InputText>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => PostDto.Title)" />
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row mt-2">
                 <label for="description" class="col-sm-3">Description: </label>
                 <InputText id="description" class="form-control col-sm-8" @bind-Value="@PostDto.Description" placeholder="Enter description"></InputText>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => PostDto.Description)" />
-            </div> 
-            
-            <div class="form-group row">
+            </div>
+
+            <div class="form-group row mt-2">
                 <label for="categoryId" class="col-sm-3">Category: </label>
-                <InputSelect id="categorCategoryIdyDto" class="form-control col-sm-8" @bind-Value="@CategoryId">
+                <InputSelect id="categorCategoryIdDto" class="form-control col-sm-8" @bind-Value="@CategoryId">
                     @foreach (var categoryDto in CategoryDtos)
                     {
                         <option value="@categoryDto.Id">@categoryDto.FullName</option>
@@ -31,7 +31,7 @@
                 </InputSelect>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row mt-2">
                 <MudSelect T="TagDto" Label="Tags" MultiSelection="true" ToStringFunc="(tag) => tag.Description" @bind-SelectedValues="SelectedTagDtos">
                     @foreach (var tagDto in TagDtos)
                     {
@@ -40,20 +40,19 @@
                 </MudSelect>
             </div>
 
-            <div class="form-group row">
-                <label for="image" class="col-sm-3">Image: </label>
+            <div class="form-group row mt-4">
+                <label for="image" class="col-sm-3"></label>
                 <PostUpdateImage PostId="Guid.Parse(PostId)"></PostUpdateImage>
             </div>
 
-            <button type="submit" class="btn btn-primary edit-btn">Save post</button>
-
+            <a class="btn btn-outline-primary mt-3" @onclick="@NavigateToOverview">Back</a>
             @if (PostDto.Id > Guid.Empty)
             {
-                <a class="btn btn-danger" @onclick="@DeletePost">
+                <a class="btn btn-danger mt-3" @onclick="@DeletePost">
                     Delete
                 </a>
             }
-            <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+            <button type="submit" class="btn btn-primary edit-btn mt-3">Save post</button>
         </EditForm>
     </section>
 }

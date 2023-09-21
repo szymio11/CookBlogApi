@@ -23,8 +23,9 @@ else
                             <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
                         </CardHeaderActions>
                     </MudCardHeader>
-                @*    <MudCardMedia Image="@(item.Image) Height="250" />
-*@
+
+                    <PostGetImage PostId="@item.Id"></PostGetImage>
+
                     <MudCardContent>
                         <MudText Color="Color.Dark">@item.Description</MudText>
                         <MudText Color="Color.Dark">@item.Category.FullName</MudText>

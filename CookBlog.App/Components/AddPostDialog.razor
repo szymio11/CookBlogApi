@@ -29,13 +29,7 @@
                             <MudSelectItem T="TagDto" Value="@tagDto">@tagDto.Description</MudSelectItem>
                         }
                     </MudSelect>
-                    <InputFile class="mt-2" OnChange="@OnInputFileChange"></InputFile>
-                </MudCardContent>
-                  
-                <MudCardContent>
-                   @* <div class="d-flex justify-center mt-10">
-                        <MudImage ObjectFit="ObjectFit.Cover" Height="200" Width="250" Src="@PostDto.ImageURL" Elevation="25" Class="rounded-lg" />
-                    </div>*@
+
                 </MudCardContent>
 
             </MudCard>
@@ -46,10 +40,4 @@
         <MudButton Color="Color.Primary" OnClick="HandleValidSubmit">Ok</MudButton>
     </DialogActions>
 </MudDialog>
-
-@code{
-    private async Task OnInputFileChange(InputFileChangeEventArgs e)
-    {
-        
-    }
 }
