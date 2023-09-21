@@ -4,10 +4,10 @@ namespace CookBlog.Core.Exceptions;
 
 public sealed class InvalidFileExtensionsException : CustomException
 {
-    public string File { get; }
-    
-    public InvalidFileExtensionsException(string file) : base($"File:'{file}' is invalid image")
+    public string Extension { get; }
+
+    public InvalidFileExtensionsException(string extension) : base($"Extension:'{extension}' is invalid")
     {
-        File = file;
+        Extension = extension;
     }
 }

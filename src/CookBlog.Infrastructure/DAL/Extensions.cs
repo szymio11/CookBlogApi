@@ -2,9 +2,7 @@
 using CookBlog.Api.Core.Repositories;
 using CookBlog.Api.Infrastructure.DAL.Decorators;
 using CookBlog.Api.Infrastructure.DAL.Repositories;
-using CookBlog.Core.Abstractions;
 using CookBlog.Infrastructure.DAL;
-using CookBlog.Infrastructure.DAL.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

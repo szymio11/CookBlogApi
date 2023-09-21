@@ -26,7 +26,7 @@ internal sealed class FileService : IFileService
         var extension = Path.GetExtension(file.FileName);
 
         if (!_extensionFileOptions.AllowedExtensions.Contains(extension))
-            throw new InvalidFileExtensionsException(file.FileName);
+            throw new InvalidFileExtensionsException(extension);
 
         var newFileName = $"{Guid.NewGuid()}{extension}";
         var filePath = Path.Combine(_environment.ContentRootPath, "wwwroot", "Images", newFileName);
