@@ -6,11 +6,13 @@ using Microsoft.EntityFrameworkCore;
 namespace CookBlog.Api.Infrastructure.DAL.Repositories;
 
 internal sealed class PostRepository : IPostRepository
-{
+{ 
     private readonly DbSet<Post> _posts;
 
-    public PostRepository(MyCookBlogDbContext dbContext) 
-        => _posts = dbContext.Posts;
+    public PostRepository(MyCookBlogDbContext dbContext)
+    {
+        _posts = dbContext.Posts;
+    }
 
     public async Task AddAsync(Post post)
     {
@@ -31,4 +33,9 @@ internal sealed class PostRepository : IPostRepository
             .Include(p => p.Tags)
             .Include(p => p.Comments)
             .SingleOrDefaultAsync(p => p.Id == id);
+
+    public async Task<ImagePath?> GetImagePathAsync(PostId postId)
+        => await _posts.Where(p => p.Id == postId)
+            .Select(p => p.ImagePath)
+            .FirstOrDefaultAsync();
 }

@@ -7,25 +7,25 @@ namespace CookBlog.App.Pages.Posts;
 public partial class PostCreate
 {
     [Inject]
-    public IPostDataService PostDataService { get; set; } 
+    public IPostDataService PostDataService { get; set; }
     [Inject]
-    public ICategoryDataService CategoryDataService { get; set; } 
+    public ICategoryDataService CategoryDataService { get; set; }
     [Inject]
-    public ITagDataService TagDataService { get; set; } 
+    public ITagDataService TagDataService { get; set; }
     [Inject]
-    public NavigationManager NavigationManager { get; set; } 
+    public NavigationManager NavigationManager { get; set; }
 
     [Parameter]
-    public string PostId { get; set; } 
-    public PostDto PostDto { get; set; } = new PostDto();  
-    public IEnumerable<CategoryDto> CategoryDtos { get; set; } = new List<CategoryDto>(); 
-    public IEnumerable<TagDto> TagDtos { get; set; } = new List<TagDto>(); 
-    public IEnumerable<TagDto> SelectedTagDtos { get; set; } = new List<TagDto>(); 
+    public string PostId { get; set; }
+    public PostDto PostDto { get; set; } = new PostDto();
+    public IEnumerable<CategoryDto> CategoryDtos { get; set; } = new List<CategoryDto>();
+    public IEnumerable<TagDto> TagDtos { get; set; } = new List<TagDto>();
+    public IEnumerable<TagDto> SelectedTagDtos { get; set; } = new List<TagDto>();
 
-    protected CategoryDto Category; 
-    protected string Message = string.Empty; 
-    protected string StatusClass = string.Empty; 
-    protected bool Saved;  
+    protected CategoryDto Category;
+    protected string Message = string.Empty;
+    protected string StatusClass = string.Empty;
+    protected bool Saved;
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,8 +33,13 @@ public partial class PostCreate
         CategoryDtos = (await CategoryDataService.GetCategoriesAsync()).ToList();
         TagDtos = (await TagDataService.GetTagsAsync()).ToList();
 
-        PostDto = new PostDto { Title = "", Description = "", Category = new CategoryDto { Id = Guid.Empty, FullName = ""},
-            Tags = new HashSet<TagDto> {new TagDto{Id = Guid.Empty, Description = "" }} };
+        PostDto = new PostDto
+        {
+            Title = "",
+            Description = "",
+            Category = new CategoryDto { Id = Guid.Empty, FullName = "" },
+            Tags = new HashSet<TagDto> { new TagDto { Id = Guid.Empty, Description = "" } }
+        };
 
         Category = PostDto.Category;
         SelectedTagDtos = PostDto.Tags;

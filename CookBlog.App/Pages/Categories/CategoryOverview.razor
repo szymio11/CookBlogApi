@@ -9,34 +9,37 @@
 else
 {
     <MudContainer Class="d-flex ma-8">
-        @foreach (var item in CategoryDtos)
-        {
-            <MudCard width="250px;" Class="mr-2">
+        <div class="d-flex flex-wrap justify-center">
+            @foreach (var item in CategoryDtos)
+            {
+                <MudCard width="250px;" Class="ma-2">
 
-                <MudCardHeader>
-                    <CardHeaderAvatar>
-                        <MudAvatar Color="Color.Secondary">I</MudAvatar>
-                    </CardHeaderAvatar>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6" Color="Color.Dark">@item.FullName</MudText>
-                        <MudText Typo="Typo.body2">Pyszne i proste!</MudText>
-                    </CardHeaderContent>
-                    <CardHeaderActions>
-                        <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
-                    </CardHeaderActions>
-                </MudCardHeader>
-                <MudCardMedia Image="images/pilars.jpg" Height="250" />
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">Przekonaj sie, że dobrze trafiłeś:</MudText>
-                    <MudButton Variant="Variant.Text">Przejdz dalej...</MudButton>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudIconButton Icon="@Icons.Material.Filled.Details" Label="Details" Color="Color.Info" @onclick="@(() => {NavigationManager.NavigateTo($"/categorydetail/{item.Id}");})"></MudIconButton>
-                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Label="Edit" Color="Color.Tertiary" @onclick="@(() => {NavigationManager.NavigateTo($"/categoryedit/{item.Id}");})"></MudIconButton>
-                    <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Error" @onclick="@(() => {DeleteCategoryAsync(item.Id);})"></MudIcon>
-                </MudCardActions>
-            </MudCard>
-        }
+                    <MudCardHeader>
+                        <CardHeaderAvatar>
+                            <MudAvatar Color="Color.Secondary">I</MudAvatar>
+                        </CardHeaderAvatar>
+                        <CardHeaderContent>
+                            <MudText Typo="Typo.h6" Color="Color.Dark">@item.FullName</MudText>
+                            <MudText Typo="Typo.body2">Pyszne i proste!</MudText>
+                        </CardHeaderContent>
+                        <CardHeaderActions>
+                            <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                        </CardHeaderActions>
+                    </MudCardHeader>
+                    <MudCardMedia Image="images/pilars.jpg" Height="250" />
+                    <MudCardContent Class="justify-center ma-2">
+                        <MudText Typo="Typo.body2">Przekonaj sie, że dobrze trafiłeś:</MudText>
+                        <MudButton Variant="Variant.Text">Przejdz dalej...</MudButton>
+
+                    <MudCardActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Details" Label="Details" Color="Color.Info" @onclick="@(() => {NavigationManager.NavigateTo($"/categorydetail/{item.Id}");})"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Label="Edit" Color="Color.Tertiary" @onclick="@(() => {NavigationManager.NavigateTo($"/categoryedit/{item.Id}");})"></MudIconButton>
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Title="Delete" Color="Color.Error" @onclick="@(() => {DeleteCategoryAsync(item.Id);})"></MudIcon>
+                    </MudCardActions>
+                    </MudCardContent>
+                </MudCard>
+            }
+        </div>
     </MudContainer>
 }
 <div Class="btn btn-Primary table-primary quick-add-btn">

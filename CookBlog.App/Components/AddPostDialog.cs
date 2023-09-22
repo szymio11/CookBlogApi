@@ -16,6 +16,7 @@ public partial class AddPostDialog
 
     [Parameter]
     public EventCallback<bool> CloseEventCallBack { get; set; }
+
     [CascadingParameter] 
     MudDialogInstance MudDialog { get; set; }
 

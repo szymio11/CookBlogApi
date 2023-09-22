@@ -19,5 +19,7 @@ internal sealed class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasConversion(t => t.Value, s => new Title(s));
         builder.Property(p => p.Description)
             .HasConversion(d => d.Value, s => new Description(s));
+        builder.Property(p => p.ImagePath)
+            .HasConversion(i => i.Value, s => new ImagePath(s));
     }
 }

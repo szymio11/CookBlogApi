@@ -7,6 +7,7 @@ public class Post
     public PostId Id { get; }
     public Title Title { get; private set; }
     public Description Description { get; private set; }
+    public ImagePath? ImagePath { get; private set; }
     public Category Category { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public UserId? UserId { get; private set; }
@@ -53,5 +54,10 @@ public class Post
         {
             _tags.Add(newTag);
         }
+    } 
+    
+    public void ChangeImage(ImagePath imagePath)
+    {
+        ImagePath = imagePath;
     }
 }

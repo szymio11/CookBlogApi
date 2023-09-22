@@ -1,0 +1,44 @@
+﻿@using System.IO;
+@using CookBlog.App.Services;
+
+@inject IPostDataService PostDataService
+
+<div class="row">
+
+    <div class="col-4">
+        <div class="from-group">
+            <InputFile OnChange="OpenFileAsync"></InputFile>
+        </div>
+    </div>
+
+    <div class="d-flex justify-left mt-4">
+        <MudImage ObjectFit="ObjectFit.Cover" Height="200" Width="250" Src="@_image" Elevation="25" Class="rounded-lg" />
+    </div>
+
+</div>
+
+@code
+{
+    [Parameter]
+    public Guid PostId { get; set; }
+
+    string _image = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _image = await PostDataService.GetImage(PostId);
+
+        await base.OnInitializedAsync();
+    }
+
+    async Task OpenFileAsync(InputFileChangeEventArgs inputFileChangeEvent)
+    {
+        var format = inputFileChangeEvent.File.ContentType;
+        var resizedImage = await inputFileChangeEvent.File.RequestImageFileAsync(format, 300, 300);
+        var buffer = new byte[resizedImage.Size];
+        await using var stream = resizedImage.OpenReadStream();
+        await stream.ReadAsync(buffer);
+        _image = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        await PostDataService.UpdateImagePostAsync(PostId, resizedImage);
+    }
+}

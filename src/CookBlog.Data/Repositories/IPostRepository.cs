@@ -9,4 +9,5 @@ public interface IPostRepository
     Task<Post?> GetAsync(PostId id);
     Task<bool> AnyAsync(PostId id);
     void DeleteAsync(Post post);
+    Task<ImagePath?> GetImagePathAsync(PostId postId);
 }
