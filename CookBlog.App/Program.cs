@@ -28,6 +28,8 @@ builder.Services.AddHttpClient<IPostDataService, PostDataService>(client => clie
     .AddHttpMessageHandler<ValidateHeaderHandler>();
 builder.Services.AddHttpClient<IUserDataService, UserDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
     .AddHttpMessageHandler<ValidateHeaderHandler>();
+builder.Services.AddHttpClient<ICommentDataService, CommentDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
+    .AddHttpMessageHandler<ValidateHeaderHandler>();
 
 await builder.Build().RunAsync();
 
