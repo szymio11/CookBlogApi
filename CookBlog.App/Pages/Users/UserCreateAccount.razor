@@ -1,14 +1,16 @@
-﻿@page "/usercreateaccount" 
+﻿@page "/usercreateaccount"
 @page "/usercreateaccount/{UserId}"
 
 @if (!Saved)
 {
     <section class="user-create-account">
         <h1 class="page-title">Details for @UserDto.UserName</h1>
+
         <EditForm Model="@UserDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
+
             <div class="form-group">
                 <label for="userName" class="col-sm-3"></label>
                 <InputText id="userName" class="form-control col-sm-8" @bind-Value="@UserDto.UserName" placeholder="UserName"></InputText>
@@ -40,9 +42,10 @@
             </div>
 
             <button type="submit" class="btn btn-primary edit-btn">Save post</button>
-
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
         </EditForm>
+
     </section>
 }
 else

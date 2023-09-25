@@ -1,33 +1,52 @@
-﻿@page "/postdetail/{PostId}"
+﻿@*@page "/postdetail/{PostId}"
 
-<h1 class="page-title">Details for @PostDto.Title</h1>
+<div class="container" style="margin-bottom: 500px;">
 
-<div class="col-12 row">
-    <div class="col-10 row">
+    <div class="col-12 row">
+        <div class="col-10 row">
 
-        <div class="col-xs-12 col-sm-8">
+            <div class="col-xs-12 col-sm-8">
+                <MudText Typo="Typo.h3" Label="Title" Class="mt-2">@PostDto.Title </MudText>
+                <PostGetImage PostId="@Guid.Parse(PostId)"></PostGetImage>
+                <MudText Typo="Typo.body1" Label="Description" Class="mt-2">@PostDto.Description </MudText>
 
-            <MudText Typo="Typo.h3" Label="Title" Class="mt-2">@PostDto.Title </MudText>
-
-            <PostGetImage PostId="@Guid.Parse(PostId)"></PostGetImage>
-
-            <MudText Typo= "Typo.body1" Label="Description" Class="mt-2">@PostDto.Description </MudText>
-
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Category:</label>
-                <div class="col-sm-8">
-                    <label type="text" class="form-control-plaintext">@PostDto.Category.FullName</label>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Category:</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@PostDto.Category?.FullName</label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Tags:</label>
-                <div class="col-sm-8">
-                    <label type="text" class="form-control-plaintext">@string.Join(", ", PostDto.Tags.Select(tag => tag.Description))</label>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Tags:</label>
+                    <div class="col-sm-8">
+                        <label type="text" class="form-control-plaintext">@string.Join(", ", PostDto.Tags?.Select(tag => tag.Description))</label>
+                    </div>
                 </div>
+
+                <div class="comments  mt-6">
+                    @foreach (var comment in PostDto.Comments)
+                    {
+                        <div class="comment">
+                            <h5>@comment.FullName</h5>
+                            <p>@comment.Description</p>
+                            <hr />
+                        </div>
+                    }
+                    <div class="AddCommentContainer">
+                        <h3>Add Comment</h3>
+                        <EditForm Model="@CommentDto" OnValidSubmit="@AddComment">
+                            <InputText id="name" class="form-control col-sm-8" @bind-Value="@CommentDto.FullName" placeholder="Enter name"></InputText>
+                            <InputTextArea class="inputTextArea" @bind-Value="@CommentDto.Description"></InputTextArea>
+
+                            <button type="submit" class="btn btn-primary">Add Comment</button>
+                        </EditForm>
+                    </div>
+                </div>
+
             </div>
 
         </div>
-
     </div>
 </div>
+*@

@@ -5,10 +5,12 @@
 {
     <section class="category-edit">
         <h1 class="page-title">Details For @CategoryDto.FullName</h1>
+
         <EditForm Model="@CategoryDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
+
             <div class="form-group row">
                 <label for="fullName" class="col-sm-3">Full name: </label>
                 <InputText id="fullName" class="form-control col-sm-8" @bind-Value="CategoryDto.FullName" placeholder="Enter full name"></InputText>
@@ -16,9 +18,9 @@
             </div>
 
             <button type="submit" class="btn btn-primary edit-btn">Save category</button>
-
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
         </EditForm>
+
     </section>
 }
 else

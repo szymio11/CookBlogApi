@@ -1,43 +1,45 @@
 ﻿<div class="bg-light" id="sidebar-wrapper">
+
     <div class="sidebar-logo">
         @*        <img class="img-responsive" id="logo" src="images/bethanylogo.png" />*@
     </div>
+
     <div class="profile">
         <div class="profile-bg">
             <img class="img-responsive" src="images/profilePicture.jpg" />
         </div>
+
         <div class="profile-picture">
             @*        <img class="img-responsive circle account-photo" src="images/profilePicture.jpg" />*@
         </div>
     </div>
+
     <div class="menu list-group list-group-flush">
         <MudPaper Width="250px" Class="d-inline-flex py-3" Elevation="0">
+
             <MudNavMenu Class="mud-width-full">
                 <AuthorizeView>
-
                     <Authorized>
-
                         <MudText Typo="Typo.h6" Class="px-4">So much inspiration!</MudText>
                         @*  <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Go fun!</MudText>*@
                         <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
                         <MudNavLink Href="/categoryoverview" Icon="@Icons.Material.Filled.ViewList">Categories</MudNavLink>
                         <MudNavLink Href="/tagoverview" Icon="@Icons.Material.Filled.ViewList">Tags</MudNavLink>
-                        <MudNavLink Href="/postoverview" Icon="@Icons.Material.Filled.ViewList">Posts</MudNavLink>
                         <MudNavLink Href="/logout" Icon="@Icons.Material.Filled.Logout">Logout</MudNavLink>
 
-              @*          <MudNavGroup Title="Klick Me" Icon="@Icons.Material.Filled.ViewList" Expanded="true">
-                            <MudNavLink Href="/tagdetail" Icon="@Icons.Material.Filled.Add" IconColor="Color.Success">Danie Dnia</MudNavLink>
-                            <MudNavLink Href="/tagdetail" Icon="@Icons.Material.Filled.Add" IconColor="Color.Info">Schabowy</MudNavLink>
+                        @*          <MudNavGroup Title="Klick Me" Icon="@Icons.Material.Filled.ViewList" Expanded="true">
+                        <MudNavLink Href="/tagdetail" Icon="@Icons.Material.Filled.Add" IconColor="Color.Success">Danie Dnia</MudNavLink>
+                        <MudNavLink Href="/tagdetail" Icon="@Icons.Material.Filled.Add" IconColor="Color.Info">Schabowy</MudNavLink>
                         </MudNavGroup>*@
-
                     </Authorized>
+
                     <NotAuthorized>
                         <MudNavLink Href="/login" Icon="@Icons.Material.Filled.Login">Login</MudNavLink>
                         <MudNavLink Href="/usercreateaccount" Icon="@Icons.Material.Filled.AppRegistration">Register</MudNavLink>
                     </NotAuthorized>
-
                 </AuthorizeView>
             </MudNavMenu>
+
         </MudPaper>
     </div>
 </div>

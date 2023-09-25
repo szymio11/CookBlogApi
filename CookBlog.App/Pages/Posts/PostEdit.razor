@@ -5,10 +5,12 @@
 {
     <section class="post-edit">
         <h1 class="page-title">Details for @PostDto.Title</h1>
+
         <EditForm Model="@PostDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
+
             <div class="form-group row mt-2">
                 <label for="title" class="col-sm-3">Title: </label>
                 <InputText id="title" class="form-control col-sm-8" @bind-Value="@PostDto.Title" placeholder="Enter title"></InputText>
@@ -53,6 +55,7 @@
                 </a>
             }
             <button type="submit" class="btn btn-primary edit-btn mt-3">Save post</button>
+
         </EditForm>
     </section>
 }

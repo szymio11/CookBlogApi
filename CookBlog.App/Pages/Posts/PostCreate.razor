@@ -5,10 +5,12 @@
 {
     <section class="post-edit">
         <h1 class="page-title">Details for @PostDto.Title</h1>
+
         <EditForm Model="@PostDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
+
             <div class="form-group row">
                 <MudTextField Label="Title" @bind-Value="@PostDto.Title"
                           For="@(() => PostDto.Title)"></MudTextField>
@@ -36,12 +38,11 @@
                     }
                 </MudSelect>
             </div>
-
             <button type="submit" class="btn btn-primary edit-btn">Save post</button>
-
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
 
         </EditForm>
+
     </section>
 }
 else

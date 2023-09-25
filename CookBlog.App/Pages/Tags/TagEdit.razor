@@ -5,20 +5,22 @@
 {
     <section class="tag-edit">
         <h1 class="page-title">Details For @TagDto.Description</h1>
+
         <EditForm Model="@TagDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
+
             <div class="form-group row">
                 <label for="description" class="col-sm-3">Description: </label>
                 <InputText id="description" class="form-control col-sm-8" @bind-Value="TagDto.Description" placeholder="Enter description"></InputText>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => TagDto.Description)" />
             </div>
-
             <button type="submit" class="btn btn-primary edit-btn">Save category</button>
-
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
         </EditForm>
+
     </section>
 }
 else

@@ -229,3 +229,36 @@ nav {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.AddCommentContainer {
+    padding: 30px;
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+    .AddCommentContainer .inputTextArea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        height: 200px;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .AddCommentContainer button {
+        display: block;
+    }
+
+.comment {
+    width: 100%;
+    display: block;
+}
+
+.comment h5 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+    .comment p {
+        font-size: 16px;
+    }
