@@ -5,29 +5,22 @@
 {
     <section class="tag-create">
         <h1 class="page-title">Details for @TagDto.Description</h1>
+
         <EditForm Model="@TagDto" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
             <DataAnnotationsValidator />
             <ValidationSummary></ValidationSummary>
+
             <div class="form-group row">
                 <label for="title" class="col-sm-3">Title: </label>
                 <InputText id="title" class="form-control col-sm-8" @bind-Value="@TagDto.Description" placeholder="Enter title"></InputText>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => TagDto.Description)" />
             </div>
-@*
-            <div class="form-group row">
-                <MudSelect T="TagDto" Label="Tags" MultiSelection="true" ToStringFunc="(tag) => tag.Description" @bind-SelectedValues="SelectedTagDtos">
-                    @foreach (var tagDto in TagDtos)
-                    {
-                        <MudSelectItem T="TagDto" Value="@tagDto">@tagDto.Description</MudSelectItem>
-                    }
-                </MudSelect>
-            </div>*@
-
             <button type="submit" class="btn btn-primary edit-btn">Save post</button>
-
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</a>
+
         </EditForm>
+
     </section>
 }
 else
