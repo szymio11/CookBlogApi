@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>47d7a81d-1488-479a-9a3a-298daea3b272</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,12 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\Images\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="..\..\.dockerignore">
+	    <Link>.dockerignore</Link>
+	  </Content>
 	</ItemGroup>
 
 </Project>

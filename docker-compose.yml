@@ -1,0 +1,24 @@
+﻿services:
+  cookblog.api:
+    image: blogapiti.azurecr.io/cookblog.api
+    build:
+      context: .
+      dockerfile: src/CookBlog/Dockerfile
+    networks:
+      - cookblognetwork
+    ports:
+      - "8881:80"
+    
+  cookblog.app:
+    image: blogapiti.azurecr.io/cookblog.app
+    build:
+      context: .
+      dockerfile: CookBlog.App/Dockerfile
+    networks:
+        - cookblognetwork
+    ports:
+      - "8880:80"
+      
+networks:
+  cookblognetwork:
+    driver: bridge

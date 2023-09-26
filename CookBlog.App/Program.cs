@@ -12,6 +12,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+var apiUri = new Uri(builder.Configuration["ApiUrl"]!);
 builder.Services.AddMudServices();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddBlazoredLocalStorage();
@@ -20,18 +21,20 @@ builder.Services.AddScoped<CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<CustomAuthenticationStateProvider>());
 
 builder.Services.AddTransient<ValidateHeaderHandler>();
-builder.Services.AddHttpClient<ICategoryDataService, CategoryDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
+
+
+builder.Services.AddHttpClient<ICategoryDataService, CategoryDataService>(ConfigureClient)
     .AddHttpMessageHandler<ValidateHeaderHandler>();
-builder.Services.AddHttpClient<ITagDataService, TagDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
+builder.Services.AddHttpClient<ITagDataService, TagDataService>(ConfigureClient)
     .AddHttpMessageHandler<ValidateHeaderHandler>();
-builder.Services.AddHttpClient<IPostDataService, PostDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
+builder.Services.AddHttpClient<IPostDataService, PostDataService>(ConfigureClient)
     .AddHttpMessageHandler<ValidateHeaderHandler>();
-builder.Services.AddHttpClient<IUserDataService, UserDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
+builder.Services.AddHttpClient<IUserDataService, UserDataService>(ConfigureClient)
     .AddHttpMessageHandler<ValidateHeaderHandler>();
-builder.Services.AddHttpClient<ICommentDataService, CommentDataService>(client => client.BaseAddress = new Uri("https://localhost:5001/"))
+builder.Services.AddHttpClient<ICommentDataService, CommentDataService>(ConfigureClient)
     .AddHttpMessageHandler<ValidateHeaderHandler>();
 
 await builder.Build().RunAsync();
+return;
 
-
-
+void ConfigureClient(HttpClient client) => client.BaseAddress = apiUri;
