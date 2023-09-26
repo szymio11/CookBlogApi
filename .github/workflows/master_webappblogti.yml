@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/Web:${{ github.sha }}
+        tags: blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/web:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'webappblogti'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_69143c1befc64518a63534a585efecb8 }}
-        images: 'blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/Web:${{ github.sha }}'
+        images: 'blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/web:${{ github.sha }}'
