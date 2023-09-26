@@ -30,8 +30,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/web:${{ github.sha }}
-        file: ./Dockerfile
+        tags: blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/cookblog.api:${{ github.sha }}
+        file: ./../CookBlog.App/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,4 +48,4 @@ jobs:
         app-name: 'webappblogti'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_69143c1befc64518a63534a585efecb8 }}
-        images: 'blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/web:${{ github.sha }}'
+        images: 'blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/cookblog.api:${{ github.sha }}'
