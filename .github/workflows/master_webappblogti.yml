@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: blogapiti.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_81b61a95da7946d7960f70851f861ffc }}/cookblog.api:${{ github.sha }}
-        file: ./../CookBlog.App/Dockerfile
+        file: ./../src/CookBlog/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
